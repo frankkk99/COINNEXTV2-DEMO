@@ -228,6 +228,14 @@
             background-color: #3b82f6; /* blue-500 */
         }
 
+        /* Pricing Toggle */
+        .pricing-toggle button {
+            transition: all 0.2s ease-in-out;
+        }
+        .pricing-toggle button.active {
+            background-color: var(--primary-color) !important;
+            color: white !important;
+        }
 
         /* Smart "WOW" Preloader Styles */
         #preloader { background-color: var(--bg-dark); position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -444,6 +452,12 @@
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">สมัคร <span class="highlight-text">Verified Talent</span></h2>
                 <p class="text-gray-400 max-w-3xl mx-auto">ทุกคนใช้งานฟรี หากต้องการความน่าเชื่อถือและโอกาสที่มากขึ้น เลือก Verified</p>
+                
+                <div class="mt-8 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle">
+                    <button data-period="1" class="px-6 py-2 rounded-full text-sm font-semibold active">รายเดือน</button>
+                    <button data-period="6" class="px-6 py-2 rounded-full text-sm font-semibold text-gray-400">6 เดือน</button>
+                    <button data-period="12" class="px-6 py-2 rounded-full text-sm font-semibold text-gray-400">รายปี</button>
+                </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <!-- Basic Verified -->
@@ -452,9 +466,12 @@
                     <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Basic</h3>
                     <div class="my-6">
-                        <p class="text-4xl font-bold text-green-400">99 <span class="text-lg font-normal">บาท/เดือน</span></p>
-                        <p class="text-gray-400"><del>จากปกติ 199 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
-                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                        <p class="text-4xl font-bold text-green-400">
+                           <span class="price" data-price-1="99" data-price-6="499" data-price-12="899">99</span>
+                           <span class="text-lg font-normal price-period">บาท/เดือน</span>
+                        </p>
+                        <p class="text-gray-400"><del class="price-original" data-price-1="199" data-price-6="1194" data-price-12="2388">จากปกติ 199 บาท</del></p>
+                        <p class="text-sm text-gray-400 mt-2 price-promo-text">(สำหรับ 3 เดือนแรก)</p>
                     </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
                         <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>รับเครื่องหมาย Verified</span></li>
@@ -473,9 +490,12 @@
                     <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Pro Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Pro</h3>
                     <div class="my-6">
-                        <p class="text-4xl font-bold text-green-400">199 <span class="text-lg font-normal">บาท/เดือน</span></p>
-                        <p class="text-gray-400"><del>จากปกติ 399 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
-                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                        <p class="text-4xl font-bold text-green-400">
+                            <span class="price" data-price-1="199" data-price-6="999" data-price-12="1799">199</span>
+                           <span class="text-lg font-normal price-period">บาท/เดือน</span>
+                        </p>
+                        <p class="text-gray-400"><del class="price-original" data-price-1="399" data-price-6="2394" data-price-12="4788">จากปกติ 399 บาท</del></p>
+                        <p class="text-sm text-gray-400 mt-2 price-promo-text">(สำหรับ 3 เดือนแรก)</p>
                     </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
                         <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>รับสิทธิประโยชน์ทั้งหมดของ Basic</strong></span></li>
@@ -492,9 +512,12 @@
                     <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Premium</h3>
                     <div class="my-6">
-                        <p class="text-4xl font-bold text-green-400">349 <span class="text-lg font-normal">บาท/เดือน</span></p>
-                        <p class="text-gray-400"><del>จากปกติ 699 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
-                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                        <p class="text-4xl font-bold text-green-400">
+                           <span class="price" data-price-1="349" data-price-6="1749" data-price-12="3149">349</span>
+                           <span class="text-lg font-normal price-period">บาท/เดือน</span>
+                        </p>
+                        <p class="text-gray-400"><del class="price-original" data-price-1="699" data-price-6="4194" data-price-12="8388">จากปกติ 699 บาท</del></p>
+                        <p class="text-sm text-gray-400 mt-2 price-promo-text">(สำหรับ 3 เดือนแรก)</p>
                     </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
                         <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>รับสิทธิประโยชน์ทั้งหมดของ Pro</strong></span></li>
@@ -628,7 +651,7 @@
         </div>
     </footer>
     
-    <!-- MODALS CONTAINER -->
+    <!-- MODALS & POPUPS CONTAINER -->
     <div id="modals-container">
         <!-- AUTH MODAL -->
         <div id="auth-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden flex items-center justify-center">
@@ -687,29 +710,29 @@
         <!-- FAVORITES MODAL -->
         <div id="favorites-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
             <div class="modal-overlay absolute inset-0 bg-black/70"></div>
-            <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-lg max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
-                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
-                <div class="p-8 text-center border-b border-gray-700">
-                    <h2 class="text-3xl font-bold text-white">รายการโปรด</h2>
-                    <p class="text-gray-400 mt-2">โปรไฟล์ที่คุณบันทึกไว้</p>
+            <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-sm max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
+                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-6 h-6"></i></button>
+                <div class="p-6 text-center border-b border-gray-700">
+                    <h2 class="text-2xl font-bold text-white">รายการโปรด</h2>
                 </div>
-                <div class="p-8 flex-1 overflow-y-auto">
-                    <div id="favorites-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="p-4 flex-1 overflow-y-auto">
+                    <div id="favorites-list-container" class="space-y-4">
                         <!-- Favorite items will be injected here -->
                     </div>
                     <div id="favorites-empty-message" class="text-center text-gray-400 py-10 hidden">
-                        <i data-lucide="heart-off" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
+                        <i data-lucide="heart-off" class="w-12 h-12 mx-auto mb-4 text-gray-500"></i>
                         <p>ยังไม่มีรายการโปรด</p>
                     </div>
                 </div>
             </div>
         </div>
 
+
         <!-- NOTIFICATIONS MODAL -->
         <div id="notifications-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
             <div class="modal-overlay absolute inset-0 bg-black/70"></div>
             <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-xs max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
-                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
+                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-6 h-6"></i></button>
                 <div class="p-6 text-center border-b border-gray-700">
                     <h2 class="text-2xl font-bold text-white">การแจ้งเตือน</h2>
                 </div>
@@ -724,6 +747,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- CHAT POPUP -->
+        <div class="fixed bottom-6 right-6 z-40">
+            <!-- Chat Bubble Button -->
+            <button id="chat-bubble-btn" class="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 btn-primary">
+                <i data-lucide="message-square" class="w-8 h-8 text-white"></i>
+            </button>
+            <!-- Chat Modal -->
+            <div id="chat-modal" class="hidden glass-modal absolute bottom-20 right-0 w-80 h-[28rem] rounded-xl flex flex-col">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                    <h3 class="font-bold text-white">ข้อความ</h3>
+                    <button id="chat-close-btn" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                <div id="chat-list-container" class="flex-1 overflow-y-auto p-2">
+                    <!-- Chat items will be injected by JS -->
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -791,11 +833,18 @@
         { id: 'op-20', name: 'ศูนย์พัฒนาการจัดสวัสดิการสังคมผู้สูงอายุ', description: 'ดูแลผู้สูงอายุ, กิจกรรมนันทนาการ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' }
     ];
 
-    let favorites = ['talent-2']; // Example: User already favorited one talent
+    let favorites = ['talent-2']; 
     let notifications = [
         { id: 1, text: 'คุณได้รับข้อความใหม่จาก "ดีเจ ลีโอ"', unread: true },
         { id: 2, text: 'การสมัคร Verified ของคุณได้รับการอนุมัติ', unread: false }
     ];
+
+    const CHAT_DATA = [
+        { id: 1, name: 'ดีเจ ลีโอ', message: 'สวัสดีครับ สนใจรายละเอียดงานครับ', time: '5 นาที', unread: true, avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=100' },
+        { id: 2, name: 'คุณอารียา', message: 'ได้เลยค่ะ เดี๋ยวส่งใบเสนอราคาไปให้นะคะ', time: '1 ชม.', unread: false, avatar: 'https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?auto=compress&cs=tinysrgb&w=100' },
+        { id: 3, name: 'Eventify Planners', message: 'ขอบคุณที่ใช้บริการครับ', time: '3 ชม.', unread: false, avatar: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=100' },
+    ];
+
 
     // ========= RENDER FUNCTIONS =========
     function createTalentCard(talent) {
@@ -819,6 +868,28 @@
                     <h3 class="text-xl font-bold text-white">${talent.name}</h3>
                     <p class="text-sm font-semibold text-primary-color">${talent.category}</p>
                 </div>
+            </div>
+        `;
+    }
+
+    function createFavoriteCard(talent) {
+        let badge = '';
+        if (talent.verifiedLevel === 'pro') {
+            badge = `<span class="absolute top-3 left-3 bg-purple-500 text-white px-2 py-0.5 rounded-full text-[10px] font-semibold z-10">Pro</span>`;
+        } else if (talent.verifiedLevel === 'basic') {
+            badge = `<span class="absolute top-3 left-3 bg-blue-500 text-white px-2 py-0.5 rounded-full text-[10px] font-semibold z-10">Verified</span>`;
+        }
+        return `
+            <div class="bg-gray-800/50 rounded-lg p-3 flex items-center gap-4 relative">
+                 ${badge}
+                <img data-src="${talent.image}" alt="${talent.name}" class="lazyload w-16 h-16 object-cover rounded-md flex-shrink-0">
+                <div class="flex-grow overflow-hidden">
+                    <h4 class="font-bold text-white truncate">${talent.name}</h4>
+                    <p class="text-sm text-gray-400 truncate">${talent.category}</p>
+                </div>
+                <button class="favorite-btn p-2 text-white favorited" data-talent-id="${talent.id}">
+                    <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
+                </button>
             </div>
         `;
     }
@@ -863,6 +934,24 @@
             </div>
         `;
     }
+
+    function createChatItem(chat) {
+        const fontWeight = chat.unread ? 'font-bold' : 'font-normal';
+        return `
+            <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer">
+                <div class="relative flex-shrink-0">
+                    <img class="w-12 h-12 rounded-full object-cover" src="${chat.avatar}" alt="${chat.name}">
+                    ${chat.unread ? '<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full chat-unread-dot ring-2 ring-gray-800"></span>' : ''}
+                </div>
+                <div class="flex-grow overflow-hidden">
+                    <p class="font-semibold text-white truncate">${chat.name}</p>
+                    <p class="text-sm text-gray-400 ${fontWeight} truncate">${chat.message}</p>
+                </div>
+                <div class="flex-shrink-0 text-xs text-gray-500">${chat.time}</div>
+            </div>
+        `;
+    }
+
 
     function renderTalentSlider() {
         const container = document.getElementById('slider-container');
@@ -912,7 +1001,7 @@
         const favoritedTalents = TALENT_DATA.filter(t => favorites.includes(t.id));
 
         if (favoritedTalents.length > 0) {
-            container.innerHTML = favoritedTalents.map(createTalentCard).join('');
+            container.innerHTML = favoritedTalents.map(createFavoriteCard).join('');
             emptyMsg.classList.add('hidden');
             container.classList.remove('hidden');
         } else {
@@ -934,6 +1023,13 @@
             emptyMsg.classList.remove('hidden');
         }
         lucide.createIcons();
+    }
+    
+    function renderChatModal() {
+        const container = document.getElementById('chat-list-container');
+        if(container) {
+            container.innerHTML = CHAT_DATA.map(createChatItem).join('');
+        }
     }
     
     // ========= UI UPDATE FUNCTIONS =========
@@ -980,8 +1076,11 @@
             favorites.push(talentId);
         }
 
-        // Update UI
-        button.classList.toggle('favorited');
+        // Update UI on all cards with the same talentId
+        document.querySelectorAll(`[data-talent-id="${talentId}"] .favorite-btn`).forEach(btn => {
+            btn.classList.toggle('favorited', favorites.includes(talentId));
+        });
+        
         updateCounters();
         
         // If favorites modal is open, re-render it
@@ -1046,6 +1145,7 @@
         renderTalentSlider();
         renderEntrepreneurSlider();
         renderOpportunitySlider();
+        renderChatModal();
         updateCounters();
 
         // --- Setup Event Listeners ---
@@ -1079,6 +1179,45 @@
                 tab.classList.add('active');
                 authModal.querySelectorAll('.auth-form').forEach(form => {
                     form.classList.toggle('active', form.id === `${tabName}-form`);
+                });
+            });
+        });
+
+        // Chat Popup Logic
+        const chatBubbleBtn = document.getElementById('chat-bubble-btn');
+        const chatModal = document.getElementById('chat-modal');
+        const chatCloseBtn = document.getElementById('chat-close-btn');
+
+        chatBubbleBtn.addEventListener('click', () => chatModal.classList.toggle('hidden'));
+        chatCloseBtn.addEventListener('click', () => chatModal.classList.add('hidden'));
+
+        // Pricing Toggle Logic
+        const pricingToggles = document.querySelectorAll('.pricing-toggle button');
+        pricingToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                pricingToggles.forEach(t => t.classList.remove('active'));
+                toggle.classList.add('active');
+                const period = toggle.dataset.period;
+                
+                document.querySelectorAll('.tilt-card').forEach(card => {
+                    const priceEl = card.querySelector('.price');
+                    const periodEl = card.querySelector('.price-period');
+                    const originalEl = card.querySelector('.price-original');
+                    const promoTextEl = card.querySelector('.price-promo-text');
+                    
+                    if(priceEl) {
+                        priceEl.textContent = priceEl.dataset[`price-${period}`];
+                        
+                        if(period === '1') {
+                            periodEl.textContent = 'บาท/เดือน';
+                            originalEl.textContent = `จากปกติ ${originalEl.dataset['price-1']} บาท`;
+                            promoTextEl.textContent = '(สำหรับ 3 เดือนแรก)';
+                        } else {
+                            periodEl.textContent = `บาท/${period === '6' ? '6 เดือน' : 'ปี'}`;
+                             originalEl.textContent = `จากปกติ ${originalEl.dataset[`price-${period}`]} บาท`;
+                             promoTextEl.textContent = `ประหยัดสูงสุด ${period === '6' ? '15%' : '25%'}`;
+                        }
+                    }
                 });
             });
         });
