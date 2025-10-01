@@ -148,10 +148,10 @@
         }
         @keyframes heart-pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
         
-        #favorites-counter, #notifications-counter {
+        #favorites-counter, #notifications-counter, #chat-counter {
             display: flex; align-items: center; justify-content: center; line-height: 1;
         }
-        #favorites-counter.hidden, #notifications-counter.hidden { display: none; }
+        #favorites-counter.hidden, #notifications-counter.hidden, #chat-counter.hidden { display: none; }
 
         .notification-item.unread { background-color: rgba(16, 185, 129, 0.1); }
         .notification-item:hover { background-color: rgba(255, 255, 255, 0.05); }
@@ -226,6 +226,15 @@
         }
         .chat-unread-dot {
             background-color: #3b82f6; /* blue-500 */
+        }
+        #chat-bubble-btn {
+            border: 2px solid var(--primary-color);
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+        #chat-bubble-btn.active {
+             background-color: var(--primary-color);
+             color: white;
         }
 
         /* Pricing Toggle */
@@ -382,10 +391,10 @@
 
 
         <!-- SEARCH RESULTS PREVIEW -->
-        <section id="search-results" class="py-20">
+        <section id="search-results" class="py-12">
             <div class="container mx-auto px-6">
                 <div class="mb-8" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
                 </div>
                 <div id="talent-slider" class="relative group slider-wrapper" data-aos="fade-up">
                     <div id="slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide">
@@ -402,10 +411,10 @@
         </section>
 
         <!-- INTERESTING ENTREPRENEURS -->
-        <section id="interesting-entrepreneurs" class="py-20 bg-gray-900/50">
+        <section id="interesting-entrepreneurs" class="py-12 bg-gray-900/50">
             <div class="container mx-auto px-6">
                 <div class="mb-8" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
                 </div>
                  <div id="entrepreneur-slider" class="relative group slider-wrapper" data-aos="fade-up">
                     <div id="ent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide">
@@ -422,14 +431,14 @@
         </section>
 
         <!-- OPPORTUNITY PARTNERS -->
-        <section id="opportunity-partners" class="py-20">
+        <section id="opportunity-partners" class="py-12">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">
                         ส่งต่อโอกาสสู่<span class="highlight-text">สังคม</span>
                     </h2>
                     <p class="text-gray-400 max-w-3xl mx-auto mt-4">
-                        เราร่วมมือกับหน่วยงานและมูลนิธิต่างๆ เพื่อเชื่อมโยงผู้ที่ขาดโอกาสเข้ากับผู้ว่าจ้าง สร้างสังคมที่เท่าเทียม
+                        เราร่วมมือกับหน่วยงานและมูลนิธิต่างๆ เพื่อเชื่อมโยงผู้มีความสามารถที่ขาดโอกาสเข้ากับผู้ว่าจ้าง สร้างสังคมที่เท่าเทียม
                     </p>
                 </div>
                 <div id="opportunity-slider" class="relative group slider-wrapper" data-aos="fade-up">
@@ -751,8 +760,9 @@
         <!-- CHAT POPUP -->
         <div class="fixed bottom-6 right-6 z-40">
             <!-- Chat Bubble Button -->
-            <button id="chat-bubble-btn" class="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 btn-primary">
-                <i data-lucide="message-square" class="w-8 h-8 text-white"></i>
+            <button id="chat-bubble-btn" class="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 relative">
+                <i data-lucide="message-square" class="w-8 h-8"></i>
+                <span id="chat-counter" class="absolute -top-1 -right-1 block h-5 w-5 rounded-full bg-red-600 text-white text-xs font-bold ring-2 ring-gray-900 hidden">0</span>
             </button>
             <!-- Chat Modal -->
             <div id="chat-modal" class="hidden glass-modal absolute bottom-20 right-0 w-80 h-[28rem] rounded-xl flex flex-col">
@@ -1042,6 +1052,11 @@
         const unreadCount = notifications.filter(n => n.unread).length;
         notifCounter.textContent = unreadCount;
         notifCounter.classList.toggle('hidden', unreadCount === 0);
+
+        const chatCounter = document.getElementById('chat-counter');
+        const unreadChatCount = CHAT_DATA.filter(c => c.unread).length;
+        chatCounter.textContent = unreadChatCount;
+        chatCounter.classList.toggle('hidden', unreadChatCount === 0);
     }
     
     function openModal(modal) {
@@ -1188,8 +1203,14 @@
         const chatModal = document.getElementById('chat-modal');
         const chatCloseBtn = document.getElementById('chat-close-btn');
 
-        chatBubbleBtn.addEventListener('click', () => chatModal.classList.toggle('hidden'));
-        chatCloseBtn.addEventListener('click', () => chatModal.classList.add('hidden'));
+        chatBubbleBtn.addEventListener('click', () => {
+            chatModal.classList.toggle('hidden');
+            chatBubbleBtn.classList.toggle('active');
+        });
+        chatCloseBtn.addEventListener('click', () => {
+            chatModal.classList.add('hidden');
+            chatBubbleBtn.classList.remove('active');
+        });
 
         // Pricing Toggle Logic
         const pricingToggles = document.querySelectorAll('.pricing-toggle button');
