@@ -23,6 +23,9 @@
     <!-- Swiper.js for carousels -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
+    
+    <!-- LazySizes for Lazy Loading Images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
     <style>
         :root {
@@ -188,6 +191,23 @@
             transition-timing-function: linear !important;
         }
 
+        /* Lazy Loading Styles */
+        img.lazyload, img.lazyloading {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        img.lazyloaded {
+            opacity: 1;
+        }
+        .lazyload, .lazyloading {
+            opacity: 0;
+        }
+        .lazyloaded {
+            opacity: 1;
+            transition: opacity 300ms;
+        }
+
+
         /* Smart "WOW" Preloader Styles */
         #preloader { background-color: var(--bg-dark); position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #preloader.start-exit {
@@ -277,7 +297,7 @@
     <main>
         <!-- HERO -->
         <section class="relative text-center py-24 md:py-40 px-6 overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
+            <div class="absolute inset-0 bg-cover bg-center opacity-20 lazyload" data-bg="https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1920"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
             <div class="relative z-10">
                 <h1 data-aos="fade-down" class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
@@ -715,7 +735,7 @@
                 <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
                     <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
                 </button>
-                <img src="${talent.image}" alt="${talent.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img data-src="${talent.image}" src="https://placehold.co/280x384/111827/374151?text=..." alt="${talent.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
                     <h3 class="text-xl font-bold text-white">${talent.name}</h3>
                     <p class="text-sm font-semibold text-primary-color">${talent.category}</p>
@@ -735,7 +755,7 @@
         return `
             <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-item-id="${item.id}">
                 ${badge}
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img data-src="${item.image}" src="https://placehold.co/280x384/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
                     <h3 class="text-xl font-bold text-white">${item.name}</h3>
                     <p class="text-sm font-semibold text-primary-color">${item.category}</p>
