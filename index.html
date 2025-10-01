@@ -20,6 +20,10 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
+    <!-- Swiper.js for carousels -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
+
     <style>
         :root {
             --primary-color: #10B981;
@@ -173,13 +177,15 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* Custom scrollbar hider */
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+        /* Swiper Carousel styles */
+        .swiper {
+            padding-bottom: 1rem !important;
         }
-        .scrollbar-hide {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+        .swiper-slide {
+            width: 280px;
+        }
+        .swiper-wrapper {
+            transition-timing-function: linear !important;
         }
 
         /* Smart "WOW" Preloader Styles */
@@ -330,19 +336,34 @@
 
         <!-- SEARCH RESULTS PREVIEW -->
         <section id="search-results" class="py-20 overflow-hidden">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
+            <div class="container mx-auto">
+                <div class="text-center mb-12 px-6" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">ตัวอย่าง<span class="highlight-text">ผู้มีความสามารถ</span></h2>
                 </div>
-                <!-- Changed from grid to flex container for horizontal scroll -->
-                <div id="talent-preview-grid" class="flex overflow-x-auto gap-8 pb-4 -mx-6 px-6 scrollbar-hide">
-                    <!-- Talent cards will be injected here by JS -->
+                <div class="swiper talent-swiper">
+                    <div id="talent-preview-grid" class="swiper-wrapper">
+                        <!-- Talent cards will be injected here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERESTING ENTREPRENEURS -->
+        <section id="interesting-entrepreneurs" class="py-20 overflow-hidden bg-gray-900/50">
+            <div class="container mx-auto">
+                <div class="text-center mb-12 px-6" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
+                </div>
+                <div class="swiper entrepreneur-swiper">
+                    <div id="entrepreneur-preview-grid" class="swiper-wrapper">
+                        <!-- Entrepreneur cards will be injected here by JS -->
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- VERIFIED TALENT -->
-        <section id="verified-talent" class="py-20 bg-gray-900/50">
+        <section id="verified-talent" class="py-20">
           <div class="container mx-auto px-6">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">สมัคร <span class="highlight-text">Verified Talent</span></h2>
@@ -412,7 +433,7 @@
         </section>
 
         <!-- PARTNER ADS -->
-        <section id="partner-services" class="py-20">
+        <section id="partner-services" class="py-20 bg-gray-900/50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">Partner <span class="highlight-text">Services</span></h2>
@@ -429,7 +450,7 @@
         </section>
 
         <!-- WHY CHOOSE US -->
-        <section class="py-20 bg-gray-900/50">
+        <section class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">ทำไมต้อง <span class="highlight-text">COINNEXT</span>?</h2>
@@ -475,21 +496,8 @@
             </div>
         </section>
 
-        <!-- INTERESTING ENTREPRENEURS -->
-        <section id="interesting-entrepreneurs" class="py-20 overflow-hidden">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
-                </div>
-                <div id="entrepreneur-preview-grid" class="flex overflow-x-auto gap-8 pb-4 -mx-6 px-6 scrollbar-hide">
-                    <!-- Entrepreneur cards will be injected here by JS -->
-                </div>
-            </div>
-        </section>
-
-
         <!-- CTA -->
-        <section class="py-20">
+        <section class="py-20 bg-gray-900/50">
             <div class="container mx-auto px-6 text-center" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">พร้อมที่จะเริ่มต้นหรือยัง?</h2>
                 <p class="text-gray-400 mb-8 max-w-2xl mx-auto">ไม่ว่าคุณจะกำลังมองหาคนทำงาน หรือต้องการนำเสนอความสามารถของคุณ ที่นี่คือที่สำหรับคุณ</p>
@@ -672,16 +680,16 @@
     ];
 
     const ENTREPRENEUR_DATA = [
-        { id: 'ent-1', name: 'The Grind Cafe', category: 'ร้านกาแฟ', image: 'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-2', name: 'Moment Studio', category: 'สตูดิโอถ่ายภาพ', image: 'https://images.pexels.com/photos/3061995/pexels-photo-3061995.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-3', name: 'Eventify Planners', category: 'บริษัทจัดอีเวนต์', image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-4', name: 'Growth Agency', category: 'เอเจนซี่การตลาด', image: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-5', name: 'Iron Fitness', category: 'ฟิตเนส', image: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-6', name: 'The Chef\'s Table', category: 'ร้านอาหาร', image: 'https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-7', name: 'Pixel Perfect Design', category: 'บริษัทออกแบบ', image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-8', name: 'The Hub', category: 'Co-working Space', image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-9', name: 'Soundwave Studio', category: 'สตูดิโอทำเพลง', image: 'https://images.pexels.com/photos/164745/pexels-photo-164745.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 'ent-10', name: 'Frame by Frame', category: 'บริษัทผลิตวิดีโอ', image: 'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=800' }
+        { id: 'ent-1', name: 'The Grind Cafe', category: 'ร้านกาแฟ', image: 'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'ent-2', name: 'Moment Studio', category: 'สตูดิโอถ่ายภาพ', image: 'https://images.pexels.com/photos/3061995/pexels-photo-3061995.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'ent-3', name: 'Eventify Planners', category: 'บริษัทจัดอีเวนต์', image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'ent-4', name: 'Growth Agency', category: 'เอเจนซี่การตลาด', image: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'ent-5', name: 'Iron Fitness', category: 'ฟิตเนส', image: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'ent-6', name: 'The Chef\'s Table', category: 'ร้านอาหาร', image: 'https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'ent-7', name: 'Pixel Perfect Design', category: 'บริษัทออกแบบ', image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'ent-8', name: 'The Hub', category: 'Co-working Space', image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'ent-9', name: 'Soundwave Studio', category: 'สตูดิโอทำเพลง', image: 'https://images.pexels.com/photos/164745/pexels-photo-164745.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'ent-10', name: 'Frame by Frame', category: 'บริษัทผลิตวิดีโอ', image: 'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' }
     ];
 
     let favorites = ['talent-2']; // Example: User already favorited one talent
@@ -694,15 +702,15 @@
     function createTalentCard(talent) {
         let badge = '';
         if (talent.verifiedLevel === 'pro') {
-            badge = `<span class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">Pro Verified</span>`;
+            badge = `<span class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">Pro Verified</span>`;
         } else if (talent.verifiedLevel === 'basic') {
-            badge = `<span class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">Verified</span>`;
+            badge = `<span class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">Verified</span>`;
         }
 
         const isFavorited = favorites.includes(talent.id);
 
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-aos="fade-up" data-talent-id="${talent.id}">
+            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-talent-id="${talent.id}">
                 ${badge}
                 <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
                     <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
@@ -717,8 +725,16 @@
     }
 
     function createEntrepreneurCard(item) {
+        let badge = '';
+        if (item.verifiedLevel === 'pro') {
+            badge = `<span class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">Pro Verified</span>`;
+        } else if (item.verifiedLevel === 'basic') {
+            badge = `<span class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">Verified</span>`;
+        }
+
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-aos="fade-up" data-item-id="${item.id}">
+            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-item-id="${item.id}">
+                ${badge}
                 <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
                     <h3 class="text-xl font-bold text-white">${item.name}</h3>
@@ -738,19 +754,19 @@
     }
 
     function renderTalentPreviews() {
-        const grid = document.getElementById('talent-preview-grid');
-        if (grid) {
-             grid.innerHTML = TALENT_DATA.map(talent => {
-                return `<div class="flex-shrink-0 w-[280px]">${createTalentCard(talent)}</div>`;
+        const wrapper = document.getElementById('talent-preview-grid');
+        if (wrapper) {
+             wrapper.innerHTML = TALENT_DATA.map(talent => {
+                return `<div class="swiper-slide">${createTalentCard(talent)}</div>`;
             }).join('');
         }
     }
 
     function renderEntrepreneurPreviews() {
-        const grid = document.getElementById('entrepreneur-preview-grid');
-        if (grid) {
-             grid.innerHTML = ENTREPRENEUR_DATA.map(item => {
-                return `<div class="flex-shrink-0 w-[280px]">${createEntrepreneurCard(item)}</div>`;
+        const wrapper = document.getElementById('entrepreneur-preview-grid');
+        if (wrapper) {
+             wrapper.innerHTML = ENTREPRENEUR_DATA.map(item => {
+                return `<div class="swiper-slide">${createEntrepreneurCard(item)}</div>`;
             }).join('');
         }
     }
@@ -896,6 +912,36 @@
             }
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
+            }
+             // Initialize Swipers
+            if (typeof Swiper !== 'undefined') {
+                new Swiper('.talent-swiper', {
+                    loop: true,
+                    slidesPerView: 'auto',
+                    spaceBetween: 32,
+                    speed: 8000,
+                    allowTouchMove: true,
+                    autoplay: {
+                        delay: 1,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
+                    },
+                    grabCursor: true,
+                });
+
+                new Swiper('.entrepreneur-swiper', {
+                    loop: true,
+                    slidesPerView: 'auto',
+                    spaceBetween: 32,
+                    speed: 10000,
+                    allowTouchMove: true,
+                    autoplay: {
+                        delay: 1,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
+                    },
+                    grabCursor: true,
+                });
             }
         }, 100);
     });
