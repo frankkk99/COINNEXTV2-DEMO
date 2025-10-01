@@ -149,6 +149,39 @@
         .notification-item.unread { background-color: rgba(16, 185, 129, 0.1); }
         .notification-item:hover { background-color: rgba(255, 255, 255, 0.05); }
 
+        /* Auth Modal Styles */
+        .auth-tab {
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            color: #9CA3AF; /* gray-400 */
+        }
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        .social-btn {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        /* Custom scrollbar hider */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
         /* Smart "WOW" Preloader Styles */
         #preloader { background-color: var(--bg-dark); position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #preloader.start-exit {
@@ -213,11 +246,7 @@
                     <a href="#partner-services" class="text-gray-300 hover:text-white transition">Partner</a>
                 </nav>
                 <div class="flex items-center gap-2">
-                    <div class="hidden md:flex items-center relative">
-                        <input type="text" placeholder="ค้นหา เช่น 'ช่างภาพ'..." class="bg-gray-800/50 border border-gray-700 rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none focus:border-primary-color transition">
-                        <i data-lucide="search" class="w-4 h-4 absolute left-4 text-gray-500"></i>
-                    </div>
-                     <!-- Icons Section -->
+                    <!-- Icons Section -->
                     <button id="favorites-btn" class="text-gray-300 hover:text-white transition-colors p-2 rounded-full hover:bg-gray-700 relative">
                         <i data-lucide="heart" class="w-5 h-5"></i>
                         <span id="favorites-counter" class="absolute -top-1 -right-1 block h-5 w-5 rounded-full bg-red-600 text-white text-xs font-bold ring-2 ring-gray-900 hidden">0</span>
@@ -226,6 +255,8 @@
                         <i data-lucide="bell" class="w-5 h-5"></i>
                         <span id="notifications-counter" class="absolute -top-1 -right-1 block h-5 w-5 rounded-full bg-red-600 text-white text-xs font-bold ring-2 ring-gray-900 hidden">0</span>
                     </button>
+                    <div class="w-px h-6 bg-gray-700 hidden sm:block mx-2"></div>
+                    <button id="auth-btn" class="px-4 py-2 rounded-md text-sm font-medium btn btn-primary">เข้าสู่ระบบ / สมัคร</button>
                     <!-- Mobile Menu Button Placeholder -->
                     <div class="md:hidden">
                         <button class="text-white p-2">
@@ -243,7 +274,7 @@
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
             <div class="relative z-10">
-                <h1 data-aos="fade-down" class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                <h1 data-aos="fade-down" class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
                     หาคนทำงาน<span class="highlight-text">ทุกงาน</span>ได้ที่นี่
                 </h1>
                 <p data-aos="fade-down" data-aos-delay="200" class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
@@ -298,12 +329,13 @@
         </section>
 
         <!-- SEARCH RESULTS PREVIEW -->
-        <section id="search-results" class="py-20">
+        <section id="search-results" class="py-20 overflow-hidden">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">ตัวอย่าง<span class="highlight-text">ผู้มีความสามารถ</span></h2>
                 </div>
-                <div id="talent-preview-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Changed from grid to flex container for horizontal scroll -->
+                <div id="talent-preview-grid" class="flex overflow-x-auto gap-8 pb-4 -mx-6 px-6 scrollbar-hide">
                     <!-- Talent cards will be injected here by JS -->
                 </div>
             </div>
@@ -322,11 +354,14 @@
                 <div class="flex-grow">
                     <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Basic</h3>
-                    <p class="text-3xl font-bold mt-6">199 <span class="text-base font-normal text-gray-400">บาท/เดือน</span></p>
-                    <p class="text-green-400 mt-2 font-semibold">โปร 3 เดือนแรก: 99 บาท/เดือน</p>
+                    <div class="my-6">
+                        <p class="text-4xl font-bold text-green-400">99 <span class="text-lg font-normal">บาท/เดือน</span></p>
+                        <p class="text-gray-400"><del>จากปกติ 199 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
+                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                    </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>Badge Verified บนโปรไฟล์</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>แสดงในผลการค้นหา</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>รับเครื่องหมาย Verified</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>เพิ่มการมองเห็นในการค้นหา</span></li>
                     </ul>
                 </div>
                 <button class="mt-8 w-full btn btn-outline" style="--primary-color: #3b82f6; --primary-glow: rgba(59, 130, 246, 0.5);">สมัคร Basic</button>
@@ -340,12 +375,15 @@
                 <div class="flex-grow">
                     <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Pro Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Pro</h3>
-                    <p class="text-3xl font-bold mt-6">399 <span class="text-base font-normal text-gray-400">บาท/เดือน</span></p>
-                    <p class="text-green-400 mt-2 font-semibold">โปร 3 เดือนแรก: 199 บาท/เดือน</p>
+                    <div class="my-6">
+                        <p class="text-4xl font-bold text-green-400">199 <span class="text-lg font-normal">บาท/เดือน</span></p>
+                        <p class="text-gray-400"><del>จากปกติ 399 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
+                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                    </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>ทุกอย่างใน Basic</strong></span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>แสดงบนหน้าแรก / Recommended</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>Highlight portfolio</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>รับสิทธิประโยชน์ทั้งหมดของ Basic</strong></span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>โปรโมทบนหน้าแรก (ส่วนแนะนำ)</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>พอร์ตฟอลิโอโดดเด่นกว่าใคร</span></li>
                     </ul>
                 </div>
                 <button class="mt-8 w-full btn btn-primary" style="background-image: linear-gradient(45deg, #a855f7 0%, #c084fc 50%, #9333ea 100%); box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5);">สมัคร Pro</button>
@@ -356,12 +394,15 @@
                  <div class="flex-grow">
                     <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Premium</h3>
-                    <p class="text-3xl font-bold mt-6">699 <span class="text-base font-normal text-gray-400">บาท/เดือน</span></p>
-                    <p class="text-green-400 mt-2 font-semibold"> โปร 3 เดือนแรก: 349 บาท/เดือน</p>
+                    <div class="my-6">
+                        <p class="text-4xl font-bold text-green-400">349 <span class="text-lg font-normal">บาท/เดือน</span></p>
+                        <p class="text-gray-400"><del>จากปกติ 699 บาท</del> <span class="bg-green-500/20 text-green-300 text-xs font-bold px-2 py-1 rounded-md ml-1">SAVE 50%</span></p>
+                        <p class="text-sm text-gray-400 mt-2">(สำหรับ 3 เดือนแรก)</p>
+                    </div>
                     <ul class="text-gray-300 mt-6 text-left space-y-3">
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>ทุกอย่างใน Pro</strong></span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>Featured in Partner Ads</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>Analytics: profile views</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span><strong>รับสิทธิประโยชน์ทั้งหมดของ Pro</strong></span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>โปรโมทผ่านโฆษณาพาร์ทเนอร์</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-green-400 mr-2 flex-shrink-0 mt-1"></i> <span>ดูสถิติการเข้าชมโปรไฟล์</span></li>
                     </ul>
                 </div>
                 <button class="mt-8 w-full btn btn-outline" style="--primary-color: #f59e0b; --primary-glow: rgba(245, 158, 11, 0.5);">สมัคร Premium</button>
@@ -434,6 +475,19 @@
             </div>
         </section>
 
+        <!-- INTERESTING ENTREPRENEURS -->
+        <section id="interesting-entrepreneurs" class="py-20 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
+                </div>
+                <div id="entrepreneur-preview-grid" class="flex overflow-x-auto gap-8 pb-4 -mx-6 px-6 scrollbar-hide">
+                    <!-- Entrepreneur cards will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+
         <!-- CTA -->
         <section class="py-20">
             <div class="container mx-auto px-6 text-center" data-aos="fade-up">
@@ -490,43 +544,100 @@
         </div>
     </footer>
     
-    <!-- FAVORITES MODAL -->
-    <div id="favorites-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
-        <div class="modal-overlay absolute inset-0 bg-black/70"></div>
-        <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-xl max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
-            <div class="p-8 text-center border-b border-gray-700">
-                <h2 class="text-3xl font-bold text-white">รายการโปรด</h2>
-                <p class="text-gray-400 mt-2">โปรไฟล์ที่คุณบันทึกไว้</p>
-            </div>
-            <div class="p-8 flex-1 overflow-y-auto">
-                <div id="favorites-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Favorite items will be injected here -->
+    <!-- MODALS CONTAINER -->
+    <div id="modals-container">
+        <!-- AUTH MODAL -->
+        <div id="auth-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden flex items-center justify-center">
+            <div class="modal-overlay absolute inset-0 bg-black/70"></div>
+            <div class="modal-content glass-modal rounded-xl w-full max-w-md flex flex-col">
+                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-6 h-6"></i></button>
+                <div class="flex border-b border-gray-700">
+                    <button data-tab="signin" class="auth-tab flex-1 font-semibold active">เข้าสู่ระบบ</button>
+                    <button data-tab="signup" class="auth-tab flex-1 font-semibold">สมัครสมาชิก</button>
                 </div>
-                <div id="favorites-empty-message" class="text-center text-gray-400 py-10 hidden">
-                    <i data-lucide="heart-off" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
-                    <p>ยังไม่มีรายการโปรด</p>
+                <div class="p-8">
+                    <!-- Sign In Form -->
+                    <div id="signin-form" class="auth-form active">
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.35 11.1h-9.2v2.8h5.4c-.2 1.8-1.5 3.2-3.2 3.2-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5c.8 0 1.5.3 2.1.8l2.2-2.2C17.2 3.3 15.2 2 12.5 2 7.9 2 4 6.1 4 11s3.9 9 8.5 9c4.9 0 8.2-3.4 8.2-8.5 0-.5 0-1-.1-1.4z"/></svg> Google</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/></svg> Facebook</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.917 3.917 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.916 3.916 0 0 0-.923-1.417A3.916 3.916 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zM8 4.887a3.113 3.113 0 1 0 0 6.226 3.113 3.113 0 0 0 0-6.226zM8 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z m4.5-4.887a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25z"/></svg> Instagram</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 16 16"><path fill="currentColor" d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75zM11.4 13.998h1.57L4.474 2.14H2.859l8.55 11.858z"/></svg> X</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M17.1,5.56a1.25,1.25,0,1,0,1.25,1.25A1.25,1.25,0,0,0,17.1,5.56Zm-5.1,0A5.45,5.45,0,0,0,7.38,9.2,5.29,5.29,0,0,0,12,14.61a5.29,5.29,0,0,0,4.62-5.41A5.45,5.45,0,0,0,12,5.56ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Z"/></svg> AppleID</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 256 256"><path fill="#00C300" d="M228 0H28C12.5 0 0 12.5 0 28v200c0 15.5 12.5 28 28 28h200c15.5 0 28-12.5 28-28V28c0-15.5-12.5-28-28-28z"/><path fill="#FFF" d="M102.8 190.8c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v81.6c0 4-2.5 7.6-6.1 9-.9.6-2.1.8-3.8.8zm-45-56.2c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9.9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v25.2c0 4.9-2.5 8.5-6.1 9.9-1.2.5-2.5.7-3.8.7zm90.1 0c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9.9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v25.2c0 4.9-2.4 8.5-6.1 9.9-1.2.5-2.5.7-3.8.7zM206 91.2c-4.6-2-9.2-3-14.7-3s-10.1 1-14.7 3c-3.2 1.4-5.3 4.3-5.3 7.8v22.8c5.4-4.8 12-7.7 19.3-7.7s13.9 2.9 19.3 7.7V99c.1-3.5-2-6.4-5.2-7.8zM191.3 64c-15.2 0-27.6 12.4-27.6 27.6s12.4 27.6 27.6 27.6 27.6-12.4 27.6-27.6c.1-15.2-12.3-27.6-27.6-27.6z"/></svg> LINE</button>
+                        </div>
+                        <div class="flex items-center my-4">
+                            <hr class="flex-grow border-t border-gray-600"><span class="mx-4 text-xs text-gray-500">OR</span><hr class="flex-grow border-t border-gray-600">
+                        </div>
+                        <form class="space-y-4">
+                            <input type="email" placeholder="Email" class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition">
+                            <input type="password" placeholder="Password" class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition">
+                            <button class="w-full btn btn-primary font-semibold p-3 rounded-md">เข้าสู่ระบบ</button>
+                        </form>
+                    </div>
+                    <!-- Sign Up Form -->
+                    <div id="signup-form" class="auth-form">
+                         <form class="space-y-4">
+                            <input type="email" placeholder="Email" class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition">
+                            <input type="password" placeholder="Password" class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition">
+                            <input type="password" placeholder="Confirm Password" class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition">
+                            <button class="w-full btn btn-primary font-semibold p-3 rounded-md">สร้างบัญชี</button>
+                        </form>
+                         <div class="flex items-center my-4">
+                            <hr class="flex-grow border-t border-gray-600"><span class="mx-4 text-xs text-gray-500">OR</span><hr class="flex-grow border-t border-gray-600">
+                        </div>
+                        <p class="text-center text-sm text-gray-400">สมัครด้วย Social Media</p>
+                         <div class="grid grid-cols-2 gap-3 mt-4">
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.35 11.1h-9.2v2.8h5.4c-.2 1.8-1.5 3.2-3.2 3.2-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5c.8 0 1.5.3 2.1.8l2.2-2.2C17.2 3.3 15.2 2 12.5 2 7.9 2 4 6.1 4 11s3.9 9 8.5 9c4.9 0 8.2-3.4 8.2-8.5 0-.5 0-1-.1-1.4z"/></svg> Google</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/></svg> Facebook</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.917 3.917 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.916 3.916 0 0 0-.923-1.417A3.916 3.916 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zM8 4.887a3.113 3.113 0 1 0 0 6.226 3.113 3.113 0 0 0 0-6.226zM8 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z m4.5-4.887a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25z"/></svg> Instagram</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 16 16"><path fill="currentColor" d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75zM11.4 13.998h1.57L4.474 2.14H2.859l8.55 11.858z"/></svg> X</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M17.1,5.56a1.25,1.25,0,1,0,1.25,1.25A1.25,1.25,0,0,0,17.1,5.56Zm-5.1,0A5.45,5.45,0,0,0,7.38,9.2,5.29,5.29,0,0,0,12,14.61a5.29,5.29,0,0,0,4.62-5.41A5.45,5.45,0,0,0,12,5.56ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Z"/></svg> AppleID</button>
+                            <button class="social-btn w-full p-3 rounded-md flex items-center justify-center gap-2"><svg class="w-5 h-5" viewBox="0 0 256 256"><path fill="#00C300" d="M228 0H28C12.5 0 0 12.5 0 28v200c0 15.5 12.5 28 28 28h200c15.5 0 28-12.5 28-28V28c0-15.5-12.5-28-28-28z"/><path fill="#FFF" d="M102.8 190.8c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v81.6c0 4-2.5 7.6-6.1 9-.9.6-2.1.8-3.8.8zm-45-56.2c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9.9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v25.2c0 4.9-2.5 8.5-6.1 9.9-1.2.5-2.5.7-3.8.7zm90.1 0c-1.3 0-2.6-.2-3.8-.7-3.7-1.4-6.1-5-6.1-9.9V99.5c0-4.9 2.5-8.5 6.1-9.9 1.3-.5 2.6-.7 3.8-.7s2.6.2 3.8.7c3.7 1.4 6.1 5 6.1 9.9v25.2c0 4.9-2.4 8.5-6.1 9.9-1.2.5-2.5.7-3.8.7zM206 91.2c-4.6-2-9.2-3-14.7-3s-10.1 1-14.7 3c-3.2 1.4-5.3 4.3-5.3 7.8v22.8c5.4-4.8 12-7.7 19.3-7.7s13.9 2.9 19.3 7.7V99c.1-3.5-2-6.4-5.2-7.8zM191.3 64c-15.2 0-27.6 12.4-27.6 27.6s12.4 27.6 27.6 27.6 27.6-12.4 27.6-27.6c.1-15.2-12.3-27.6-27.6-27.6z"/></svg> LINE</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- NOTIFICATIONS MODAL -->
-    <div id="notifications-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
-        <div class="modal-overlay absolute inset-0 bg-black/70"></div>
-        <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-sm max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
-            <div class="p-6 text-center border-b border-gray-700">
-                <h2 class="text-2xl font-bold text-white">การแจ้งเตือน</h2>
+        <!-- FAVORITES MODAL -->
+        <div id="favorites-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
+            <div class="modal-overlay absolute inset-0 bg-black/70"></div>
+            <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-lg max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
+                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
+                <div class="p-8 text-center border-b border-gray-700">
+                    <h2 class="text-3xl font-bold text-white">รายการโปรด</h2>
+                    <p class="text-gray-400 mt-2">โปรไฟล์ที่คุณบันทึกไว้</p>
+                </div>
+                <div class="p-8 flex-1 overflow-y-auto">
+                    <div id="favorites-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Favorite items will be injected here -->
+                    </div>
+                    <div id="favorites-empty-message" class="text-center text-gray-400 py-10 hidden">
+                        <i data-lucide="heart-off" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
+                        <p>ยังไม่มีรายการโปรด</p>
+                    </div>
+                </div>
             </div>
-            <div id="notifications-list-container" class="flex-1 overflow-y-auto p-2">
-                <!-- Notification items will be injected here -->
-            </div>
-            <div id="notifications-empty-message" class="text-center text-gray-400 py-20 flex-1 items-center justify-center hidden">
-               <div>
-                 <i data-lucide="bell-off" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
-                 <p>ไม่มีการแจ้งเตือนใหม่</p>
-               </div>
+        </div>
+
+        <!-- NOTIFICATIONS MODAL -->
+        <div id="notifications-modal" class="modal-container fixed inset-0 z-[60] p-4 hidden">
+            <div class="modal-overlay absolute inset-0 bg-black/70"></div>
+            <div class="modal-content dropdown-modal glass-modal rounded-xl w-full max-w-xs max-h-[calc(100vh-6rem)] flex flex-col absolute top-20 right-6">
+                <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i data-lucide="x" class="w-8 h-8"></i></button>
+                <div class="p-6 text-center border-b border-gray-700">
+                    <h2 class="text-2xl font-bold text-white">การแจ้งเตือน</h2>
+                </div>
+                <div id="notifications-list-container" class="flex-1 overflow-y-auto p-2">
+                    <!-- Notification items will be injected here -->
+                </div>
+                <div id="notifications-empty-message" class="text-center text-gray-400 py-20 flex-1 items-center justify-center hidden">
+                   <div>
+                     <i data-lucide="bell-off" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
+                     <p>ไม่มีการแจ้งเตือนใหม่</p>
+                   </div>
+                </div>
             </div>
         </div>
     </div>
@@ -535,27 +646,42 @@
     // ========= APPLICATION STATE & DATA =========
     // In a real application, this data would be fetched from an API.
     const TALENT_DATA = [
-        {
-            id: 'talent-1',
-            name: 'ดีเจ ลีโอ',
-            category: 'โฮสต์ปาร์ตี้ / DJ',
-            image: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800',
-            verifiedLevel: 'pro'
-        },
-        {
-            id: 'talent-2',
-            name: 'คุณอารียา สุขใจ',
-            category: 'นักร้อง',
-            image: 'https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?auto=compress&cs=tinysrgb&w=800',
-            verifiedLevel: 'basic'
-        },
-        {
-            id: 'talent-3',
-            name: 'คุณน้ำหวาน เอนเตอร์เทน',
-            category: 'โฮสต์ปาร์ตี้ / Entertainer',
-            image: 'https://images.pexels.com/photos/5067699/pexels-photo-5067699.jpeg?auto=compress&cs=tinysrgb&w=800',
-            verifiedLevel: null
-        }
+        { id: 'talent-1', name: 'ดีเจ ลีโอ', category: 'โฮสต์ปาร์ตี้ / DJ', image: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-2', name: 'คุณอารียา สุขใจ', category: 'นักร้อง', image: 'https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-3', name: 'คุณน้ำหวาน เอนเตอร์เทน', category: 'โฮสต์ปาร์ตี้ / Entertainer', image: 'https://images.pexels.com/photos/5067699/pexels-photo-5067699.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-4', name: 'คุณเอก ช่างภาพ', category: 'ช่างภาพ', image: 'https://images.pexels.com/photos/1787235/pexels-photo-1787235.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-5', name: 'คุณพลอย นักเขียน', category: 'นักเขียนคอนเทนต์', image: 'https://images.pexels.com/photos/4050303/pexels-photo-4050303.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-6', name: 'คุณมาร์ค นักการตลาด', category: 'Digital Marketer', image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-7', name: 'คุณฟ้า กราฟิกดีไซน์', category: 'Graphic Designer', image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-8', name: 'คุณเจน ช่างแต่งหน้า', category: 'Makeup Artist', image: 'https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-9', name: 'เชฟอาร์ม', category: 'Private Chef', image: 'https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-10', name: 'ครูมายด์ สอนโยคะ', category: 'Yoga Instructor', image: 'https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-11', name: 'คุณวิทย์ ที่ปรึกษา', category: 'Business Consultant', image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-12', name: 'ช่างต้อม แอร์', category: 'ช่างแอร์', image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-13', name: 'คุณนนท์ นักดนตรี', category: 'นักดนตรี (กีต้าร์)', image: 'https://images.pexels.com/photos/164829/pexels-photo-164829.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-14', name: 'คุณเจเจ บาร์เทนเดอร์', category: 'Bartender', image: 'https://images.pexels.com/photos/331107/pexels-photo-331107.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-15', name: 'คุณไทเกอร์ นายแบบ', category: 'นายแบบ', image: 'https://images.pexels.com/photos/3775541/pexels-photo-3775541.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-16', name: 'คุณต้น นักพัฒนาเว็บ', category: 'Web Developer', image: 'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-17', name: 'คุณฝน นักวาด', category: 'Illustrator', image: 'https://images.pexels.com/photos/716276/pexels-photo-716276.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-18', name: 'คุณป๊อป จัดอีเวนต์', category: 'Event Manager', image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-19', name: 'คุณตั้ม นักพากย์', category: 'Voice Actor', image: 'https://images.pexels.com/photos/4050318/pexels-photo-4050318.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-20', name: 'คุณหมิว นักกายภาพ', category: 'Physical Therapist', image: 'https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' },
+        { id: 'talent-21', name: 'คุณนัท สถาปนิก', category: 'Architect', image: 'https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' },
+        { id: 'talent-22', name: 'คุณโอ๊ต ตัดต่อวิดีโอ', category: 'Video Editor', image: 'https://images.pexels.com/photos/4099239/pexels-photo-4099239.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
+        { id: 'talent-23', name: 'คุณแบงค์ นักแสดง', category: 'นักแสดง', image: 'https://images.pexels.com/photos/2218786/pexels-photo-2218786.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'basic' }
+    ];
+
+    const ENTREPRENEUR_DATA = [
+        { id: 'ent-1', name: 'The Grind Cafe', category: 'ร้านกาแฟ', image: 'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-2', name: 'Moment Studio', category: 'สตูดิโอถ่ายภาพ', image: 'https://images.pexels.com/photos/3061995/pexels-photo-3061995.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-3', name: 'Eventify Planners', category: 'บริษัทจัดอีเวนต์', image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-4', name: 'Growth Agency', category: 'เอเจนซี่การตลาด', image: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-5', name: 'Iron Fitness', category: 'ฟิตเนส', image: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-6', name: 'The Chef\'s Table', category: 'ร้านอาหาร', image: 'https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-7', name: 'Pixel Perfect Design', category: 'บริษัทออกแบบ', image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-8', name: 'The Hub', category: 'Co-working Space', image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-9', name: 'Soundwave Studio', category: 'สตูดิโอทำเพลง', image: 'https://images.pexels.com/photos/164745/pexels-photo-164745.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'ent-10', name: 'Frame by Frame', category: 'บริษัทผลิตวิดีโอ', image: 'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=800' }
     ];
 
     let favorites = ['talent-2']; // Example: User already favorited one talent
@@ -576,15 +702,27 @@
         const isFavorited = favorites.includes(talent.id);
 
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group" data-aos="fade-up" data-talent-id="${talent.id}">
+            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-aos="fade-up" data-talent-id="${talent.id}">
                 ${badge}
                 <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
                     <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
                 </button>
-                <img src="${talent.image}" alt="${talent.name}" class="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="${talent.image}" alt="${talent.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
                     <h3 class="text-xl font-bold text-white">${talent.name}</h3>
                     <p class="text-sm font-semibold text-primary-color">${talent.category}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function createEntrepreneurCard(item) {
+        return `
+            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-aos="fade-up" data-item-id="${item.id}">
+                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <h3 class="text-xl font-bold text-white">${item.name}</h3>
+                    <p class="text-sm font-semibold text-primary-color">${item.category}</p>
                 </div>
             </div>
         `;
@@ -601,7 +739,20 @@
 
     function renderTalentPreviews() {
         const grid = document.getElementById('talent-preview-grid');
-        if (grid) grid.innerHTML = TALENT_DATA.map(createTalentCard).join('');
+        if (grid) {
+             grid.innerHTML = TALENT_DATA.map(talent => {
+                return `<div class="flex-shrink-0 w-[280px]">${createTalentCard(talent)}</div>`;
+            }).join('');
+        }
+    }
+
+    function renderEntrepreneurPreviews() {
+        const grid = document.getElementById('entrepreneur-preview-grid');
+        if (grid) {
+             grid.innerHTML = ENTREPRENEUR_DATA.map(item => {
+                return `<div class="flex-shrink-0 w-[280px]">${createEntrepreneurCard(item)}</div>`;
+            }).join('');
+        }
     }
     
     function renderFavoritesModal() {
@@ -700,9 +851,13 @@
 
         // --- Render initial content ---
         renderTalentPreviews();
+        renderEntrepreneurPreviews();
         updateCounters();
 
         // --- Setup Event Listeners ---
+        document.getElementById('auth-btn').addEventListener('click', () => {
+            openModal(document.getElementById('auth-modal'));
+        });
         document.getElementById('favorites-btn').addEventListener('click', () => {
             renderFavoritesModal();
             openModal(document.getElementById('favorites-modal'));
@@ -720,6 +875,19 @@
         });
         
         document.body.addEventListener('click', handleFavoriteClick);
+
+        // Auth Modal Tabs
+        const authModal = document.getElementById('auth-modal');
+        authModal.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                authModal.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                authModal.querySelectorAll('.auth-form').forEach(form => {
+                    form.classList.toggle('active', form.id === `${tabName}-form`);
+                });
+            });
+        });
 
         // --- Initialize libraries ---
         setTimeout(() => {
