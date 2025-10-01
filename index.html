@@ -19,10 +19,6 @@
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-
-    <!-- Swiper.js for carousels -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
     
     <!-- LazySizes for Lazy Loading Images -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
@@ -189,24 +185,6 @@
             transition: opacity 300ms;
         }
 
-        /* For Hiding the Scrollbar */
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-
-        /* For Better Drag UX */
-        .slider-wrapper {
-            cursor: grab;
-            user-select: none;
-        }
-        .slider-wrapper.active {
-            cursor: grabbing;
-        }
-
         /* Chat Popup */
         #chat-modal {
             transition: all 0.3s ease-in-out;
@@ -231,12 +209,31 @@
         }
 
         /* Pricing Toggle */
+        .pricing-toggle {
+            border: 1px solid var(--primary-color);
+        }
         .pricing-toggle button {
             transition: all 0.2s ease-in-out;
         }
         .pricing-toggle button.active {
             background-color: var(--primary-color) !important;
             color: white !important;
+        }
+
+        /* Slider Styles */
+        .slider-wrapper {
+            cursor: grab;
+            user-select: none;
+        }
+        .slider-wrapper.active {
+            cursor: grabbing;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* Smart "WOW" Preloader Styles */
@@ -298,7 +295,7 @@
                 <a href="#" class="text-2xl font-bold text-white tracking-wider">COIN<span class="highlight-text">NEXT</span></a>
                 <nav class="hidden md:flex items-center space-x-6 text-sm">
                     <a href="#" class="text-gray-300 hover:text-white transition">Home</a>
-                    <a href="#search-results" class="text-gray-300 hover:text-white transition">ค้นหา</a>
+                    <a href="#search-results" class="text-gray-300 hover:text-white transition">Highlights</a>
                     <a href="#verified-talent" class="text-gray-300 hover:text-white transition">Verified Talent</a>
                     <a href="#partner-services" class="text-gray-300 hover:text-white transition">Partner</a>
                 </nav>
@@ -385,19 +382,19 @@
 
         <!-- SEARCH RESULTS PREVIEW -->
         <section id="search-results" class="py-12 overflow-x-hidden">
-             <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6">
                 <div class="mb-8" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white text-center">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
                 </div>
             </div>
             <div id="talent-slider" class="relative group slider-wrapper" data-aos="fade-up">
-                <div id="slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:px-24">
+                <div id="slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
                     <!-- Cards will be injected by JS -->
                 </div>
-                <button id="slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-left" class="w-8 h-8"></i>
                 </button>
-                <button id="slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-right" class="w-8 h-8"></i>
                 </button>
             </div>
@@ -405,19 +402,19 @@
 
         <!-- INTERESTING ENTREPRENEURS -->
         <section id="interesting-entrepreneurs" class="py-12 bg-gray-900/50 overflow-x-hidden">
-            <div class="container mx-auto px-6">
+             <div class="container mx-auto px-6">
                 <div class="mb-8" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white text-center">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
                 </div>
-            </div>
-            <div id="entrepreneur-slider" class="relative group slider-wrapper" data-aos="fade-up">
-                <div id="ent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:px-24">
+             </div>
+             <div id="entrepreneur-slider" class="relative group slider-wrapper" data-aos="fade-up">
+                <div id="ent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
                     <!-- Cards will be injected by JS -->
                 </div>
-                <button id="ent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="ent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-left" class="w-8 h-8"></i>
                 </button>
-                <button id="ent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="ent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-right" class="w-8 h-8"></i>
                 </button>
             </div>
@@ -425,7 +422,7 @@
 
         <!-- OPPORTUNITY PARTNERS -->
         <section id="opportunity-partners" class="py-12 overflow-x-hidden">
-            <div class="container mx-auto px-6">
+             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">
                         ส่งต่อโอกาสสู่<span class="highlight-text">สังคม</span>
@@ -436,13 +433,13 @@
                 </div>
             </div>
             <div id="opportunity-slider" class="relative group slider-wrapper" data-aos="fade-up">
-                <div id="opportunity-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:px-24">
+                <div id="opportunity-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
                     <!-- Government Agency cards will be injected here by JS -->
                 </div>
-                <button id="opportunity-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="opportunity-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-left" class="w-8 h-8"></i>
                 </button>
-                <button id="opportunity-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                <button id="opportunity-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-right" class="w-8 h-8"></i>
                 </button>
             </div>
@@ -461,7 +458,7 @@
                 <div class="flex-grow">
                     <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Basic</h3>
-                    <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle">
+                    <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle border border-primary-color">
                         <button data-period="1" class="px-4 py-1 rounded-full text-xs font-semibold active">1 เดือน</button>
                         <button data-period="6" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">6 เดือน</button>
                         <button data-period="12" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">1 ปี</button>
@@ -490,7 +487,7 @@
                 <div class="flex-grow">
                     <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Pro Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Pro</h3>
-                     <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle">
+                     <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle border border-primary-color">
                         <button data-period="1" class="px-4 py-1 rounded-full text-xs font-semibold active">1 เดือน</button>
                         <button data-period="6" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">6 เดือน</button>
                         <button data-period="12" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">1 ปี</button>
@@ -517,7 +514,7 @@
                  <div class="flex-grow">
                     <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium Verified</span>
                     <h3 class="text-2xl font-bold mt-4">Premium</h3>
-                     <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle">
+                     <div class="mt-4 flex justify-center bg-gray-800/50 p-1.5 rounded-full w-fit mx-auto pricing-toggle border border-primary-color">
                         <button data-period="1" class="px-4 py-1 rounded-full text-xs font-semibold active">1 เดือน</button>
                         <button data-period="6" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">6 เดือน</button>
                         <button data-period="12" class="px-4 py-1 rounded-full text-xs font-semibold text-gray-400">1 ปี</button>
