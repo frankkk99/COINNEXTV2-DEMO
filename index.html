@@ -180,17 +180,6 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* Swiper Carousel styles */
-        .swiper {
-            padding-bottom: 1rem !important;
-        }
-        .swiper-slide {
-            width: 280px;
-        }
-        .swiper-wrapper {
-            transition-timing-function: linear !important;
-        }
-
         /* Lazy Loading Styles */
         img.lazyload, img.lazyloading {
             opacity: 0;
@@ -205,6 +194,24 @@
         .lazyloaded {
             opacity: 1;
             transition: opacity 300ms;
+        }
+
+        /* For Hiding the Scrollbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* For Better Drag UX */
+        .slider-wrapper {
+            cursor: grab;
+            user-select: none;
+        }
+        .slider-wrapper.active {
+            cursor: grabbing;
         }
 
 
@@ -296,94 +303,129 @@
 
     <main>
         <!-- HERO -->
-        <section class="relative text-center py-24 md:py-40 px-6 overflow-hidden">
+        <section class="relative text-center py-20 md:py-32 px-6 overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-20 lazyload" data-bg="https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1920"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
             <div class="relative z-10">
-                <h1 data-aos="fade-down" class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                <h1 data-aos="fade-down" class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
                     หาคนทำงาน<span class="highlight-text">ทุกงาน</span>ได้ที่นี่
                 </h1>
                 <p data-aos="fade-down" data-aos-delay="200" class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                     แพลตฟอร์มฟรีสำหรับทุกคน ที่จะเชื่อมต่อคุณกับฟรีแลนซ์และผู้มีความสามารถทั่วประเทศ
                 </p>
-                <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#wizard" class="w-full sm:w-auto px-8 py-3 rounded-full btn btn-primary font-bold text-lg">เริ่มค้นหาคนทำงาน</a>
-                    <a href="#verified-talent" class="w-full sm:w-auto px-8 py-3 rounded-full btn btn-outline font-bold text-lg">สมัคร Verified Talent</a>
+                
+                <!-- WIZARD SEARCH IN HERO -->
+                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card rounded-xl p-6 md:p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-400 mb-2 block">หมวดหมู่งาน</label>
+                                    <select class="custom-select w-full rounded-md p-3 text-sm">
+                                        <option>ทั้งหมด</option>
+                                        <option>โฮสต์ / DJ / นักดนตรี</option>
+                                        <option>นักแสดง / นายแบบ</option>
+                                        <option>Influencer / รีวิว</option>
+                                        <option>ช่าง (ไฟ/แอร์/ซ่อม)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-400 mb-2 block">จังหวัด</label>
+                                    <select class="custom-select w-full rounded-md p-3 text-sm">
+                                        <option>ทุกจังหวัด</option>
+                                        <option>กรุงเทพมหานคร</option>
+                                        <option>เชียงใหม่</option>
+                                        <option>ภูเก็ต</option>
+                                        <option>ชลบุรี</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-400 mb-2 block">ประเภท</label>
+                                    <select class="custom-select w-full rounded-md p-3 text-sm">
+                                        <option>ทั้งหมด</option>
+                                        <option>Verified Talent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="w-full btn btn-primary font-semibold p-3 rounded-md flex items-center justify-center gap-2">
+                                <i data-lucide="search" class="w-4 h-4"></i>
+                                ค้นหา
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- WIZARD -->
-        <section id="wizard" class="container mx-auto px-6 -mt-16 relative z-20">
-            <div class="glass-card rounded-xl p-6 md:p-8" data-aos="fade-up">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                    <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="text-sm font-medium text-gray-400 mb-2 block">หมวดหมู่งาน</label>
-                            <select class="custom-select w-full rounded-md p-3 text-sm">
-                                <option>ทั้งหมด</option>
-                                <option>โฮสต์ / DJ / นักดนตรี</option>
-                                <option>นักแสดง / นายแบบ</option>
-                                <option>Influencer / รีวิว</option>
-                                <option>ช่าง (ไฟ/แอร์/ซ่อม)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-400 mb-2 block">จังหวัด</label>
-                            <select class="custom-select w-full rounded-md p-3 text-sm">
-                                <option>ทุกจังหวัด</option>
-                                <option>กรุงเทพมหานคร</option>
-                                <option>เชียงใหม่</option>
-                                <option>ภูเก็ต</option>
-                                <option>ชลบุรี</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-400 mb-2 block">ประเภท</label>
-                            <select class="custom-select w-full rounded-md p-3 text-sm">
-                                <option>ทั้งหมด</option>
-                                <option>Verified Talent</option>
-                            </select>
-                        </div>
+
+        <!-- SEARCH RESULTS PREVIEW -->
+        <section id="search-results" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="mb-8" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
+                </div>
+                <div id="talent-slider" class="relative group slider-wrapper" data-aos="fade-up">
+                    <div id="slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide">
+                        <!-- Cards will be injected by JS -->
                     </div>
-                    <button class="w-full btn btn-primary font-semibold p-3 rounded-md flex items-center justify-center gap-2">
-                        <i data-lucide="search" class="w-4 h-4"></i>
-                        ค้นหา
+                    <button id="slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-left" class="w-8 h-8"></i>
+                    </button>
+                    <button id="slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-right" class="w-8 h-8"></i>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- SEARCH RESULTS PREVIEW -->
-        <section id="search-results" class="py-20 overflow-hidden">
-            <div class="container mx-auto">
-                <div class="text-center mb-12 px-6" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">ตัวอย่าง<span class="highlight-text">ผู้มีความสามารถ</span></h2>
+        <!-- INTERESTING ENTREPRENEURS -->
+        <section id="interesting-entrepreneurs" class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6">
+                <div class="mb-8" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
                 </div>
-                <div class="swiper talent-swiper">
-                    <div id="talent-preview-grid" class="swiper-wrapper">
-                        <!-- Talent cards will be injected here by JS -->
+                 <div id="entrepreneur-slider" class="relative group slider-wrapper" data-aos="fade-up">
+                    <div id="ent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide">
+                        <!-- Cards will be injected by JS -->
                     </div>
+                    <button id="ent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-left" class="w-8 h-8"></i>
+                    </button>
+                    <button id="ent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-right" class="w-8 h-8"></i>
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- INTERESTING ENTREPRENEURS -->
-        <section id="interesting-entrepreneurs" class="py-20 overflow-hidden bg-gray-900/50">
-            <div class="container mx-auto">
-                <div class="text-center mb-12 px-6" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้ประกอบการที่<span class="highlight-text">น่าสนใจ</span></h2>
+        <!-- OPPORTUNITY PARTNERS -->
+        <section id="opportunity-partners" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">
+                        ส่งต่อโอกาสสู่<span class="highlight-text">สังคม</span>
+                    </h2>
+                    <p class="text-gray-400 max-w-3xl mx-auto mt-4">
+                        เราร่วมมือกับหน่วยงานภาครัฐและมูลนิธิต่างๆ เพื่อเชื่อมโยงผู้มีความสามารถที่ขาดโอกาสเข้ากับผู้ว่าจ้าง สร้างสังคมที่เท่าเทียม
+                    </p>
                 </div>
-                <div class="swiper entrepreneur-swiper">
-                    <div id="entrepreneur-preview-grid" class="swiper-wrapper">
-                        <!-- Entrepreneur cards will be injected here by JS -->
+                <div id="opportunity-slider" class="relative group slider-wrapper" data-aos="fade-up">
+                    <div id="opportunity-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide">
+                        <!-- Government Agency cards will be injected here by JS -->
                     </div>
+                    <button id="opportunity-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-2/3 bg-black/40 text-white rounded-r-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-left" class="w-8 h-8"></i>
+                    </button>
+                    <button id="opportunity-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-2/3 bg-black/40 text-white rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center hover:bg-black/60">
+                        <i data-lucide="chevron-right" class="w-8 h-8"></i>
+                    </button>
                 </div>
             </div>
         </section>
 
         <!-- VERIFIED TALENT -->
-        <section id="verified-talent" class="py-20">
+        <section id="verified-talent" class="py-20 bg-gray-900/50">
           <div class="container mx-auto px-6">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">สมัคร <span class="highlight-text">Verified Talent</span></h2>
@@ -711,6 +753,29 @@
         { id: 'ent-9', name: 'Soundwave Studio', category: 'สตูดิโอทำเพลง', image: 'https://images.pexels.com/photos/164745/pexels-photo-164745.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: null },
         { id: 'ent-10', name: 'Frame by Frame', category: 'บริษัทผลิตวิดีโอ', image: 'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=800', verifiedLevel: 'pro' }
     ];
+    
+    const GOVERNMENT_AGENCIES_DATA = [
+        { id: 'gov-1', name: 'กรมการจัดหางาน', description: 'ตำแหน่งงานราชการ, จัดหางาน, ฝึกอาชีพ', image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-2', name: 'กรมพัฒนาฝีมือแรงงาน', description: 'ฝึกอบรมทักษะช่าง, เทคโนโลยี', image: 'https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-3', name: 'สำนักงานส่งเสริมเศรษฐกิจดิจิทัล (depa)', description: 'งานด้านดิจิทัล, tech startup', image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-4', name: 'การท่องเที่ยวแห่งประเทศไทย (ททท.)', description: 'การตลาดท่องเที่ยว, ประชาสัมพันธ์', image: 'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-5', name: 'กรมส่งเสริมการค้าระหว่างประเทศ', description: 'การค้าระหว่างประเทศ, ส่งออก', image: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-6', name: 'สำนักงานนวัตกรรมแห่งชาติ (NIA)', description: 'งานด้านนวัตกรรม, สนับสนุน startup', image: 'https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-7', name: 'กรมประชาสัมพันธ์', description: 'งานสื่อสารมวลชน, ผลิตสื่อ', image: 'https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-8', name: 'กระทรวงสาธารณสุข', description: 'งานด้านสาธารณสุข, เจ้าหน้าที่โรงพยาบาล', image: 'https://images.pexels.com/photos/2324837/pexels-photo-2324837.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-9', name: 'กรมส่งเสริมวัฒนธรรม', description: 'งานด้านศิลปะและวัฒนธรรม', image: 'https://images.pexels.com/photos/2774547/pexels-photo-2774547.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-10', name: 'กรมอุทยานแห่งชาติ สัตว์ป่า และพันธุ์พืช', description: 'เจ้าหน้าที่พิทักษ์ป่า, นักวิชาการ', image: 'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-11', name: 'GISTDA', description: 'งานด้านดาวเทียม, ภูมิสารสนเทศ', image: 'https://images.pexels.com/photos/5439/earth-space.jpg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-12', name: 'กรมส่งเสริมการเกษตร', description: 'ส่งเสริมการเกษตร, นักวิชาการเกษตร', image: 'https://images.pexels.com/photos/2132126/pexels-photo-2132126.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-13', name: 'การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.)', description: 'วิศวกรไฟฟ้า, ช่างเทคนิค', image: 'https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-14', name: 'ไปรษณีย์ไทย', description: 'งานด้านโลจิสติกส์, การขนส่ง', image: 'https://images.pexels.com/photos/7323533/pexels-photo-7323533.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-15', name: 'ธ.ก.ส.', description: 'งานด้านการเงิน, สินเชื่อเกษตร', image: 'https://images.pexels.com/photos/70/money-infographic-business-office-70.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-16', name: 'กรมบัญชีกลาง', description: 'งานด้านบัญชี, การเงินภาครัฐ', image: 'https://images.pexels.com/photos/209224/pexels-photo-209224.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-17', name: 'สำนักงาน ก.พ.', description: 'จัดสอบราชการ, บริหารงานบุคคล', image: 'https://images.pexels.com/photos/3184328/pexels-photo-3184328.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-18', name: 'กรมควบคุมมลพิษ', description: 'นักวิชาการสิ่งแวดล้อม, ตรวจสอบคุณภาพ', image: 'https://images.pexels.com/photos/3253501/pexels-photo-3253501.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-19', name: 'สถาบันวิจัยวิทยาศาสตร์และเทคโนโลยีฯ', description: 'นักวิจัย, นักวิทยาศาสตร์', image: 'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 'gov-20', name: 'กรมการพัฒนาชุมชน', description: 'พัฒนาชุมชน, ส่งเสริมสินค้า OTOP', image: 'https://images.pexels.com/photos/4553372/pexels-photo-4553372.jpeg?auto=compress&cs=tinysrgb&w=800' }
+    ];
 
     let favorites = ['talent-2']; // Example: User already favorited one talent
     let notifications = [
@@ -763,6 +828,18 @@
             </div>
         `;
     }
+
+     function createOpportunityCard(item) {
+        return `
+            <div class="tilt-card rounded-xl overflow-hidden relative group h-96" data-item-id="${item.id}">
+                <img data-src="${item.image}" src="https://placehold.co/280x384/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <h3 class="text-xl font-bold text-white">${item.name}</h3>
+                    <p class="text-sm font-semibold text-primary-color">${item.description}</p>
+                </div>
+            </div>
+        `;
+    }
     
     function createNotificationItem(notification) {
         return `
@@ -773,24 +850,48 @@
         `;
     }
 
-    function renderTalentPreviews() {
-        const wrapper = document.getElementById('talent-preview-grid');
-        if (wrapper) {
-             wrapper.innerHTML = TALENT_DATA.map(talent => {
-                return `<div class="swiper-slide">${createTalentCard(talent)}</div>`;
-            }).join('');
-        }
+    function renderTalentSlider() {
+        const container = document.getElementById('slider-container');
+        if (!container) return;
+        const sliderItems = TALENT_DATA.map(talent => {
+            const cardHTML = createTalentCard(talent);
+            return `
+                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
+                    ${cardHTML}
+                </div>
+            `;
+        }).join('');
+        container.innerHTML = sliderItems;
     }
 
-    function renderEntrepreneurPreviews() {
-        const wrapper = document.getElementById('entrepreneur-preview-grid');
-        if (wrapper) {
-             wrapper.innerHTML = ENTREPRENEUR_DATA.map(item => {
-                return `<div class="swiper-slide">${createEntrepreneurCard(item)}</div>`;
-            }).join('');
-        }
+     function renderEntrepreneurSlider() {
+        const container = document.getElementById('ent-slider-container');
+        if (!container) return;
+        const sliderItems = ENTREPRENEUR_DATA.map(item => {
+            const cardHTML = createEntrepreneurCard(item);
+            return `
+                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
+                    ${cardHTML}
+                </div>
+            `;
+        }).join('');
+        container.innerHTML = sliderItems;
     }
     
+    function renderOpportunitySlider() {
+        const container = document.getElementById('opportunity-slider-container');
+        if (!container) return;
+        const sliderItems = GOVERNMENT_AGENCIES_DATA.map(item => {
+            const cardHTML = createOpportunityCard(item);
+            return `
+                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
+                    ${cardHTML}
+                </div>
+            `;
+        }).join('');
+        container.innerHTML = sliderItems;
+    }
+
     function renderFavoritesModal() {
         const container = document.getElementById('favorites-list-container');
         const emptyMsg = document.getElementById('favorites-empty-message');
@@ -875,6 +976,48 @@
         }
     }
 
+    function initializeSlider(containerId, prevId, nextId) {
+        const sliderContainer = document.getElementById(containerId);
+        const prevBtn = document.getElementById(prevId);
+        const nextBtn = document.getElementById(nextId);
+        const slider = sliderContainer.parentElement;
+
+        if (slider && sliderContainer && prevBtn && nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                sliderContainer.scrollBy({ left: sliderContainer.clientWidth, behavior: 'smooth' });
+            });
+            prevBtn.addEventListener('click', () => {
+                sliderContainer.scrollBy({ left: -sliderContainer.clientWidth, behavior: 'smooth' });
+            });
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = sliderContainer.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                sliderContainer.scrollLeft = scrollLeft - walk;
+            });
+        }
+    }
+
     // ========= INITIALIZATION =========
     document.addEventListener('DOMContentLoaded', () => {
         const preloader = document.getElementById('preloader');
@@ -886,8 +1029,9 @@
         }
 
         // --- Render initial content ---
-        renderTalentPreviews();
-        renderEntrepreneurPreviews();
+        renderTalentSlider();
+        renderEntrepreneurSlider();
+        renderOpportunitySlider();
         updateCounters();
 
         // --- Setup Event Listeners ---
@@ -924,6 +1068,12 @@
                 });
             });
         });
+        
+        // --- Initialize Sliders ---
+        initializeSlider('slider-container', 'slider-prev', 'slider-next');
+        initializeSlider('ent-slider-container', 'ent-slider-prev', 'ent-slider-next');
+        initializeSlider('opportunity-slider-container', 'opportunity-slider-prev', 'opportunity-slider-next');
+
 
         // --- Initialize libraries ---
         setTimeout(() => {
@@ -932,36 +1082,6 @@
             }
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
-            }
-             // Initialize Swipers
-            if (typeof Swiper !== 'undefined') {
-                new Swiper('.talent-swiper', {
-                    loop: true,
-                    slidesPerView: 'auto',
-                    spaceBetween: 32,
-                    speed: 8000,
-                    allowTouchMove: true,
-                    autoplay: {
-                        delay: 1,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                    },
-                    grabCursor: true,
-                });
-
-                new Swiper('.entrepreneur-swiper', {
-                    loop: true,
-                    slidesPerView: 'auto',
-                    spaceBetween: 32,
-                    speed: 10000,
-                    allowTouchMove: true,
-                    autoplay: {
-                        delay: 1,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                    },
-                    grabCursor: true,
-                });
             }
         }, 100);
     });
