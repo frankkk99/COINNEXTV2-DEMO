@@ -323,80 +323,66 @@
     </header>
 
     <main>
-        <!-- HERO -->
-        <section class="relative text-center py-20 md:py-32 px-6 overflow-hidden">
+        <!-- HERO & SEARCH SECTION -->
+        <section id="hero-search-section" class="relative text-center py-16 md:py-24 px-6 overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-20 lazyload" data-bg="https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1920"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
-            <div class="relative z-10">
-                <h1 data-aos="fade-down" class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                    หาคนทำงาน<span class="highlight-text">ทุกงาน</span>ได้ที่นี่
-                </h1>
-                <p data-aos="fade-down" data-aos-delay="200" class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                    แพลตฟอร์มฟรีสำหรับทุกคน ที่จะเชื่อมต่อคุณกับฟรีแลนซ์และผู้มีความสามารถทั่วประเทศ
-                </p>
-                
-                <!-- WIZARD SEARCH IN HERO -->
-                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-                    <div class="glass-card rounded-xl p-6 md:p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div>
-                                    <label class="text-sm font-medium text-gray-400 mb-2 block">หมวดหมู่งาน</label>
-                                    <select class="custom-select w-full rounded-md p-3 text-sm">
-                                        <option>ทั้งหมด</option>
-                                        <option>โฮสต์ / DJ / นักดนตรี</option>
-                                        <option>นักแสดง / นายแบบ</option>
-                                        <option>Influencer / รีวิว</option>
-                                        <option>ช่าง (ไฟ/แอร์/ซ่อม)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-gray-400 mb-2 block">จังหวัด</label>
-                                    <select class="custom-select w-full rounded-md p-3 text-sm">
-                                        <option>ทุกจังหวัด</option>
-                                        <option>กรุงเทพมหานคร</option>
-                                        <option>เชียงใหม่</option>
-                                        <option>ภูเก็ต</option>
-                                        <option>ชลบุรี</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-gray-400 mb-2 block">ประเภท</label>
-                                    <select class="custom-select w-full rounded-md p-3 text-sm">
-                                        <option>ทั้งหมด</option>
-                                        <option>Verified Talent</option>
-                                    </select>
-                                </div>
+        
+            <div class="relative z-10 container mx-auto">
+                <div data-aos="fade-down">
+                    <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
+                        ค้นหา<span class="highlight-text">ผู้มีความสามารถ</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                        แพลตฟอร์มฟรีสำหรับทุกคน ที่จะเชื่อมต่อคุณกับฟรีแลนซ์และผู้มีความสามารถทั่วประเทศ
+                    </p>
+                </div>
+        
+                <div class="max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card rounded-xl p-4 md:p-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center">
+                            <div class="sm:col-span-2 lg:col-span-2">
+                                <input id="filter-keyword" type="text" placeholder="พิมพ์ชื่อ, อาชีพ, ทักษะ..." class="w-full bg-gray-800/50 border border-gray-700 rounded-md py-3 px-4 focus:outline-none focus:border-primary-color transition text-white">
                             </div>
-                            <button class="w-full btn btn-primary font-semibold p-3 rounded-md flex items-center justify-center gap-2">
-                                <i data-lucide="search" class="w-4 h-4"></i>
-                                ค้นหา
-                            </button>
+                            <div>
+                                <select id="filter-category" class="custom-select w-full rounded-md p-3 text-sm">
+                                </select>
+                            </div>
+                            <div>
+                                <select id="filter-province" class="custom-select w-full rounded-md p-3 text-sm">
+                                    <option value="">ทุกจังหวัด</option>
+                                    <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                                    <option value="เชียงใหม่">เชียงใหม่</option>
+                                    <option value="ภูเก็ต">ภูเก็ต</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button id="clear-filters-btn" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold p-3 rounded-md flex items-center justify-center gap-2 transition">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                    ล้างค่า
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </section>
-
-
-        <!-- SEARCH RESULTS PREVIEW -->
-        <section id="search-results" class="py-12 overflow-x-hidden">
-            <div class="container mx-auto px-6">
-                <div class="mb-8" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
+        
+                <div class="mt-16 text-left">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-white">
+                            ผลลัพธ์: <span id="results-count" class="highlight-text">0</span> รายการ
+                        </h2>
+                    </div>
+        
+                    <div id="search-results-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Search results will be injected here -->
+                    </div>
+        
+                    <div id="no-results-message" class="text-center py-20 hidden">
+                        <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 text-gray-500"></i>
+                        <h3 class="text-2xl font-bold text-white">ไม่พบผลการค้นหา</h3>
+                        <p class="text-gray-400 mt-2">ลองปรับเปลี่ยนคีย์เวิร์ดหรือตัวกรองของคุณ</p>
+                    </div>
                 </div>
-            </div>
-            <div id="talent-slider" class="relative group slider-wrapper" data-aos="fade-up">
-                <div id="slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
-                    <!-- Cards will be injected by JS -->
-                </div>
-                <button id="slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-                    <i data-lucide="chevron-left" class="w-8 h-8"></i>
-                </button>
-                <button id="slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-                    <i data-lucide="chevron-right" class="w-8 h-8"></i>
-                </button>
             </div>
         </section>
 
@@ -411,10 +397,10 @@
                 <div id="ent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
                     <!-- Cards will be injected by JS -->
                 </div>
-                <button id="ent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                <button id="ent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-medium to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-left" class="w-8 h-8"></i>
                 </button>
-                <button id="ent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                <button id="ent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-medium to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
                     <i data-lucide="chevron-right" class="w-8 h-8"></i>
                 </button>
             </div>
@@ -820,26 +806,26 @@
     ];
     
     const OPPORTUNITY_PARTNERS_DATA = [
-        { id: 'op-1', name: 'มูลนิธิกระจกเงา', description: 'งานอาสาสมัคร, คัดแยกสิ่งของ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-2', name: 'มูลนิธิบ้านนกขมิ้น', description: 'พี่เลี้ยงเด็ก, งานดูแลทั่วไป', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-3', name: 'สมาคมคนตาบอดแห่งประเทศไทย', description: 'งานนวด, Call Center, งานฝีมือ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-4', name: 'กรมราชทัณฑ์', description: 'งานช่างไม้, งานเชื่อม, เบเกอรี่', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-5', name: 'มูลนิธิช่วยคนปัญญาอ่อนฯ', description: 'งานศิลปะประดิษฐ์, งานฝีมือ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-6', name: 'สถานคุ้มครองคนไร้ที่พึ่ง', description: 'งานเกษตรกรรม, ดูแลสวน', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-7', name: 'มูลนิธิพระมหาไถ่เพื่อการพัฒนาคนพิการ', description: 'งานไอที, กราฟิก, บัญชี', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-8', name: 'สมาคมคนหูหนวกแห่งประเทศไทย', description: 'งานคีย์ข้อมูล, บาริสต้า', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-9', name: 'มูลนิธิสายใจไทยฯ', description: 'งานหัตถกรรม, ผลิตภัณฑ์จากผ้า', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-10', name: 'ศูนย์ฝึกอาชีพคนพิการ (APCD)', description: 'งานอบรม, งานเอกสาร, บาริสต้า', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-11', name: 'ทัณฑสถานหญิงกลาง', description: 'งานตัดเย็บ, ทำอาหาร, เสริมสวย', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-12', name: 'มูลนิธิเด็ก', description: 'งานดูแลเด็ก, สอนพิเศษ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-13', name: 'บ้านกึ่งวิถีชาย', description: 'งานช่าง, งานซ่อมบำรุง', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-14', name: 'มูลนิธิเพื่อเด็กพิการ', description: 'ผู้ช่วยนักกายภาพ, ประดิษฐ์สื่อ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-15', name: 'โรงเรียนสอนคนตาบอดกรุงเทพ', description: 'พิมพ์อักษรเบรลล์, สอนดนตรี', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-16', name: 'มูลนิธิสร้างสรรค์เด็ก', description: 'กิจกรรมสำหรับเด็ก, พี่เลี้ยง', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-17', name: 'สมาคมส่งเสริมสถานภาพสตรีฯ', description: 'งานฝีมือสตรี, ผลิตภัณฑ์ชุมชน', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-18', name: 'สถานสงเคราะห์เด็กชายบ้านปากเกร็ด', description: 'งานดูแล, พี่เลี้ยง, สอนการบ้าน', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-19', name: 'มูลนิธิสงเคราะห์เด็กของสภากาชาดไทย', description: 'อาสาสมัคร, กิจกรรมบำบัด', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' },
-        { id: 'op-20', name: 'ศูนย์พัฒนาการจัดสวัสดิการสังคมผู้สูงอายุ', description: 'ดูแลผู้สูงอายุ, กิจกรรมนันทนาการ', image: 'Gemini_Generated_Image_ra9umpra9umpra9u.jpg' }
+        { id: 'op-1', name: 'มูลนิธิกระจกเงา', description: 'งานอาสาสมัคร, คัดแยกสิ่งของ', image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800' },
+        { id: 'op-2', name: 'มูลนิธิบ้านนกขมิ้น', description: 'พี่เลี้ยงเด็ก, งานดูแลทั่วไป', image: 'https://images.unsplash.com/photo-1516627144493-2023915155e8?q=80&w=800' },
+        { id: 'op-3', name: 'สมาคมคนตาบอดแห่งประเทศไทย', description: 'งานนวด, Call Center, งานฝีมือ', image: 'https://images.unsplash.com/photo-1581092921532-a42e05072a3a?q=80&w=800' },
+        { id: 'op-4', name: 'กรมราชทัณฑ์', description: 'งานช่างไม้, งานเชื่อม, เบเกอรี่', image: 'https://images.unsplash.com/photo-1618494432128-42f7411316b2?q=80&w=800' },
+        { id: 'op-5', name: 'มูลนิธิช่วยคนปัญญาอ่อนฯ', description: 'งานศิลปะประดิษฐ์, งานฝีมือ', image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800' },
+        { id: 'op-6', name: 'สถานคุ้มครองคนไร้ที่พึ่ง', description: 'งานเกษตรกรรม, ดูแลสวน', image: 'https://images.unsplash.com/photo-1492496913980-50133821932d?q=80&w=800' },
+        { id: 'op-7', name: 'มูลนิธิพระมหาไถ่เพื่อการพัฒนาคนพิการ', description: 'งานไอที, กราฟิก, บัญชี', image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800' },
+        { id: 'op-8', name: 'สมาคมคนหูหนวกแห่งประเทศไทย', description: 'งานคีย์ข้อมูล, บาริสต้า', image: 'https://images.unsplash.com/photo-1554224325-a3c3f3d91b65?q=80&w=800' },
+        { id: 'op-9', name: 'มูลนิธิสายใจไทยฯ', description: 'งานหัตถกรรม, ผลิตภัณฑ์จากผ้า', image: 'https://images.unsplash.com/photo-1524222717473-731317526a8e?q=80&w=800' },
+        { id: 'op-10', name: 'ศูนย์ฝึกอาชีพคนพิการ (APCD)', description: 'งานอบรม, งานเอกสาร, บาริสต้า', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800' },
+        { id: 'op-11', name: 'ทัณฑสถานหญิงกลาง', description: 'งานตัดเย็บ, ทำอาหาร, เสริมสวย', image: 'https://images.unsplash.com/photo-1598454449833-06a57f00a3e6?q=80&w=800' },
+        { id: 'op-12', name: 'มูลนิธิเด็ก', description: 'งานดูแลเด็ก, สอนพิเศษ', image: 'https://images.unsplash.com/photo-1488521787991-ed7b2f28a727?q=80&w=800' },
+        { id: 'op-13', name: 'บ้านกึ่งวิถีชาย', description: 'งานช่าง, งานซ่อมบำรุง', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800' },
+        { id: 'op-14', name: 'มูลนิธิเพื่อเด็กพิการ', description: 'ผู้ช่วยนักกายภาพ, ประดิษฐ์สื่อ', image: 'https://images.unsplash.com/photo-1576765974102-b52d91336c1c?q=80&w=800' },
+        { id: 'op-15', name: 'โรงเรียนสอนคนตาบอดกรุงเทพ', description: 'พิมพ์อักษรเบรลล์, สอนดนตรี', image: 'https://images.unsplash.com/photo-1599055893393-9c713b1f7a4c?q=80&w=800' },
+        { id: 'op-16', name: 'มูลนิธิสร้างสรรค์เด็ก', description: 'กิจกรรมสำหรับเด็ก, พี่เลี้ยง', image: 'https://images.unsplash.com/photo-1503944583232-fe5b4a0ca554?q=80&w=800' },
+        { id: 'op-17', name: 'สมาคมส่งเสริมสถานภาพสตรีฯ', description: 'งานฝีมือสตรี, ผลิตภัณฑ์ชุมชน', image: 'https://images.unsplash.com/photo-1524222717473-731317526a8e?q=80&w=800' },
+        { id: 'op-18', name: 'สถานสงเคราะห์เด็กชายบ้านปากเกร็ด', description: 'งานดูแล, พี่เลี้ยง, สอนการบ้าน', image: 'https://images.unsplash.com/photo-1593113646773-663175a40193?q=80&w=800' },
+        { id: 'op-19', name: 'มูลนิธิสงเคราะห์เด็กของสภากาชาดไทย', description: 'อาสาสมัคร, กิจกรรมบำบัด', image: 'https://images.unsplash.com/photo-1591122316295-8208151b702f?q=80&w=800' },
+        { id: 'op-20', name: 'ศูนย์พัฒนาการจัดสวัสดิการสังคมผู้สูงอายุ', description: 'ดูแลผู้สูงอายุ, กิจกรรมนันทนาการ', image: 'https://images.unsplash.com/photo-1576765662493-25c2ce917b28?q=80&w=800' }
     ];
 
     let favorites = ['talent-2']; 
@@ -867,7 +853,7 @@
         const isFavorited = favorites.includes(talent.id);
 
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group aspect-[3/4]" data-talent-id="${talent.id}">
+            <div class="tilt-card rounded-xl overflow-hidden group aspect-[3/4]" data-talent-id="${talent.id}">
                 ${badge}
                 <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
                     <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
@@ -888,6 +874,9 @@
         } else if (talent.verifiedLevel === 'basic') {
             badge = `<span class="absolute top-3 left-3 bg-blue-500 text-white px-2 py-0.5 rounded-full text-[10px] font-semibold z-10">Verified</span>`;
         }
+        
+        const isFavorited = favorites.includes(talent.id);
+
         return `
             <div class="bg-gray-800/50 rounded-lg p-3 flex items-center gap-4 relative">
                  ${badge}
@@ -896,7 +885,8 @@
                     <h4 class="font-bold text-white truncate">${talent.name}</h4>
                     <p class="text-sm text-gray-400 truncate">${talent.category}</p>
                 </div>
-                <button class="favorite-btn p-2 text-white favorited" data-talent-id="${talent.id}">
+    
+                <button class="favorite-btn p-2 text-white ${isFavorited ? 'favorited' : ''}" data-talent-id="${talent.id}">
                     <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
                 </button>
             </div>
@@ -912,12 +902,14 @@
         }
 
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group aspect-[3/4]" data-item-id="${item.id}">
-                ${badge}
-                <img data-src="${item.image}" src="https://placehold.co/280x384/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-                    <h3 class="text-xl font-bold text-white">${item.name}</h3>
-                    <p class="text-sm font-semibold text-primary-color">${item.category}</p>
+            <div class="tilt-card rounded-xl overflow-hidden group" data-item-id="${item.id}">
+                <div class="relative aspect-[3/4]">
+                    ${badge}
+                    <img data-src="${item.image}" src="https://placehold.co/300x400/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                 <div class="p-4">
+                    <h3 class="text-lg font-bold text-white truncate">${item.name}</h3>
+                    <p class="text-sm text-primary-color truncate">${item.category}</p>
                 </div>
             </div>
         `;
@@ -925,11 +917,13 @@
 
      function createOpportunityCard(item) {
         return `
-            <div class="tilt-card rounded-xl overflow-hidden relative group aspect-[3/4]" data-item-id="${item.id}">
-                <img data-src="${item.image}" src="https://placehold.co/280x384/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-                    <h3 class="text-xl font-bold text-white">${item.name}</h3>
-                    <p class="text-sm font-semibold text-primary-color">${item.description}</p>
+             <div class="tilt-card rounded-xl overflow-hidden group" data-item-id="${item.id}">
+                <div class="relative aspect-[3/4]">
+                    <img data-src="${item.image}" src="https://placehold.co/300x400/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-white truncate">${item.name}</h3>
+                    <p class="text-sm text-gray-400 line-clamp-2">${item.description}</p>
                 </div>
             </div>
         `;
@@ -960,41 +954,17 @@
             </div>
         `;
     }
-
-
-    function renderTalentSlider() {
-        const container = document.getElementById('slider-container');
-        if (!container) return;
-        const sliderItems = TALENT_DATA.map(talent => {
-            const cardHTML = createTalentCard(talent);
-            return `
-                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
-                    ${cardHTML}
-                </div>
-            `;
-        }).join('');
-        container.innerHTML = sliderItems;
-    }
-
-     function renderEntrepreneurSlider() {
-        const container = document.getElementById('ent-slider-container');
-        if (!container) return;
-        const sliderItems = ENTREPRENEUR_DATA.map(item => {
-            const cardHTML = createEntrepreneurCard(item);
-            return `
-                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
-                    ${cardHTML}
-                </div>
-            `;
-        }).join('');
-        container.innerHTML = sliderItems;
-    }
     
-    function renderOpportunitySlider() {
-        const container = document.getElementById('opportunity-slider-container');
+    // =========================================================
+    // === COMPLETE SLIDER CODE (MANUAL + DRAG-TO-SCROLL) ===
+    // =========================================================
+
+    // 1. Render Function (ใส่การ์ดลงใน Slider)
+    function renderSlider(containerId, data, cardCreator) {
+        const container = document.getElementById(containerId);
         if (!container) return;
-        const sliderItems = OPPORTUNITY_PARTNERS_DATA.map(item => {
-            const cardHTML = createOpportunityCard(item);
+        const sliderItems = data.map(item => {
+            const cardHTML = cardCreator(item);
             return `
                 <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
                     ${cardHTML}
@@ -1080,9 +1050,9 @@
         if (!button) return;
         
         const card = button.closest('[data-talent-id]');
+        if (!card) return;
         const talentId = card.dataset.talentId;
 
-        // PLACEHOLDER: Send this update to the backend
         const index = favorites.indexOf(talentId);
         if (index > -1) {
             favorites.splice(index, 1);
@@ -1090,62 +1060,18 @@
             favorites.push(talentId);
         }
 
-        // Update UI on all cards with the same talentId
         document.querySelectorAll(`[data-talent-id="${talentId}"] .favorite-btn`).forEach(btn => {
             btn.classList.toggle('favorited', favorites.includes(talentId));
         });
         
         updateCounters();
         
-        // If favorites modal is open, re-render it
         if(document.getElementById('favorites-modal')?.classList.contains('is-open')) {
             renderFavoritesModal();
         }
     }
-
-    function initializeSlider(containerId, prevId, nextId) {
-        const sliderContainer = document.getElementById(containerId);
-        const prevBtn = document.getElementById(prevId);
-        const nextBtn = document.getElementById(nextId);
-        const slider = sliderContainer.parentElement;
-
-        if (slider && sliderContainer && prevBtn && nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                sliderContainer.scrollBy({ left: sliderContainer.clientWidth, behavior: 'smooth' });
-            });
-            prevBtn.addEventListener('click', () => {
-                sliderContainer.scrollBy({ left: -sliderContainer.clientWidth, behavior: 'smooth' });
-            });
-
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('active');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = sliderContainer.scrollLeft;
-            });
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                sliderContainer.scrollLeft = scrollLeft - walk;
-            });
-        }
-    }
-
-    // ========= INITIALIZATION =========
+    
+    // --- 2. Main Logic (ใส่ไว้ใน DOMContentLoaded) ---
     document.addEventListener('DOMContentLoaded', () => {
         const preloader = document.getElementById('preloader');
         if (preloader) {
@@ -1155,14 +1081,96 @@
             };
         }
 
-        // --- Render initial content ---
-        renderTalentSlider();
-        renderEntrepreneurSlider();
-        renderOpportunitySlider();
+        // ===========================================
+        // === NEW REAL-TIME SEARCH SYSTEM LOGIC ===
+        // ===========================================
+        // --- 1. Element Selectors ---
+        const keywordInput = document.getElementById('filter-keyword');
+        const categorySelect = document.getElementById('filter-category');
+        const provinceSelect = document.getElementById('filter-province');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+        const resultsGrid = document.getElementById('search-results-grid');
+        const resultsCount = document.getElementById('results-count');
+        const noResultsMsg = document.getElementById('no-results-message');
+
+        // --- 2. Generate Category Filters Dynamically ---
+        const uniqueCategories = ['ทุกหมวดหมู่', ...new Set(TALENT_DATA.map(t => t.category))];
+        categorySelect.innerHTML = uniqueCategories.map(cat => 
+            `<option value="${cat === 'ทุกหมวดหมู่' ? '' : cat}">${cat}</option>`
+        ).join('');
+
+        // --- 3. The Main Filter and Render Function ---
+        function applyFiltersAndRender() {
+            // Get current values from all filters
+            const keyword = keywordInput.value.toLowerCase().trim();
+            const selectedCategory = categorySelect.value;
+            const selectedProvince = provinceSelect.value; 
+
+            // Start with all data and filter it down
+            let filteredResults = TALENT_DATA.filter(talent => {
+                // Keyword filter (checks name and category)
+                const keywordMatch = keyword === '' || 
+                                     talent.name.toLowerCase().includes(keyword) || 
+                                     talent.category.toLowerCase().includes(keyword);
+
+                // Category filter
+                const categoryMatch = selectedCategory === '' || 
+                                      talent.category === selectedCategory;
+                
+                // Province filter (สมมติว่าข้อมูล talent มี province)
+                // const provinceMatch = selectedProvince === '' || talent.province === selectedProvince;
+                // หากข้อมูลจริงยังไม่มี province ให้ใช้ true ไปก่อน
+                const provinceMatch = true; 
+
+                return keywordMatch && categoryMatch && provinceMatch;
+            });
+
+            renderResults(filteredResults);
+        }
+
+        // --- 4. Render Function (to display results) ---
+        function renderResults(results) {
+            // Clear previous results
+            resultsGrid.innerHTML = '';
+
+            // Update count
+            resultsCount.textContent = results.length;
+
+            // Show/Hide "No Results" message
+            if (results.length === 0) {
+                noResultsMsg.classList.remove('hidden');
+                resultsGrid.classList.add('hidden');
+            } else {
+                noResultsMsg.classList.add('hidden');
+                resultsGrid.classList.remove('hidden');
+                // ใช้ createTalentCard เดิมของคุณได้เลย
+                resultsGrid.innerHTML = results.map(createTalentCard).join('');
+                lucide.createIcons(); // สำคัญมาก: ต้อง re-render icons ใหม่ทุกครั้ง
+            }
+        }
+
+        // --- 5. Attach Event Listeners ---
+        keywordInput.addEventListener('input', applyFiltersAndRender);
+        categorySelect.addEventListener('change', applyFiltersAndRender);
+        provinceSelect.addEventListener('change', applyFiltersAndRender);
+
+        clearFiltersBtn.addEventListener('click', () => {
+            keywordInput.value = '';
+            categorySelect.value = '';
+            provinceSelect.value = '';
+            applyFiltersAndRender();
+        });
+
+        // --- 6. Initial Render on Page Load ---
+        applyFiltersAndRender();
+
+        // --- Render other sliders ---
+        renderSlider('ent-slider-container', ENTREPRENEUR_DATA, createEntrepreneurCard);
+        renderSlider('opportunity-slider-container', OPPORTUNITY_PARTNERS_DATA, createOpportunityCard);
         renderChatModal();
         updateCounters();
 
-        // --- Setup Event Listeners ---
+        // --- Setup Other Event Listeners ---
         document.getElementById('auth-btn').addEventListener('click', () => {
             openModal(document.getElementById('auth-modal'));
         });
@@ -1215,15 +1223,17 @@
         document.querySelectorAll('#verified-talent .tilt-card').forEach(card => {
             const toggles = card.querySelectorAll('.pricing-toggle button');
             toggles.forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    toggles.forEach(t => t.classList.remove('active'));
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stop card tilt
+                    const parentCard = toggle.closest('.tilt-card');
+                    parentCard.querySelectorAll('.pricing-toggle button').forEach(t => t.classList.remove('active'));
                     toggle.classList.add('active');
                     const period = toggle.dataset.period;
                     
-                    const priceEl = card.querySelector('.price');
-                    const periodEl = card.querySelector('.price-period');
-                    const originalEl = card.querySelector('.price-original');
-                    const promoTextEl = card.querySelector('.price-promo-text');
+                    const priceEl = parentCard.querySelector('.price');
+                    const periodEl = parentCard.querySelector('.price-period');
+                    const originalEl = parentCard.querySelector('.price-original');
+                    const promoTextEl = parentCard.querySelector('.price-promo-text');
                     
                     if(priceEl) {
                         priceEl.textContent = priceEl.dataset[`price-${period}`];
@@ -1242,12 +1252,6 @@
             });
         });
         
-        // --- Initialize Sliders ---
-        initializeSlider('slider-container', 'slider-prev', 'slider-next');
-        initializeSlider('ent-slider-container', 'ent-slider-prev', 'ent-slider-next');
-        initializeSlider('opportunity-slider-container', 'opportunity-slider-prev', 'opportunity-slider-next');
-
-
         // --- Initialize libraries ---
         setTimeout(() => {
             if (typeof AOS !== 'undefined') {
@@ -1258,7 +1262,6 @@
             }
         }, 100);
     });
-
     </script>
 </body>
 </html>
