@@ -762,7 +762,7 @@
                 
                 <div class="p-6 flex-1 overflow-y-auto">
                     <p class="text-sm text-gray-400 mb-4">ผลลัพธ์: <span id="modal-results-count" class="highlight-text font-bold">0</span> รายการ</p>
-                    <div id="modal-results-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div id="modal-results-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         <!-- Real-time search results will be injected here -->
                     </div>
                     <div id="modal-no-results-message" class="text-center py-20 hidden h-full flex-col justify-center items-center">
@@ -934,10 +934,15 @@
             badge = `<span class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">Verified</span>`;
         }
 
+        const isFavorited = favorites.includes(item.id);
+
         return `
-            <div class="tilt-card rounded-xl overflow-hidden group" data-item-id="${item.id}">
+            <div class="tilt-card rounded-xl overflow-hidden group" data-talent-id="${item.id}">
                 <div class="relative aspect-[3/4]">
                     ${badge}
+                     <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
+                        <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
+                    </button>
                     <img data-src="${item.image}" src="https://placehold.co/300x400/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
                  <div class="p-4">
@@ -949,9 +954,13 @@
     }
 
      function createOpportunityCard(item) {
+        const isFavorited = favorites.includes(item.id);
         return `
-             <div class="tilt-card rounded-xl overflow-hidden group" data-item-id="${item.id}">
+             <div class="tilt-card rounded-xl overflow-hidden group" data-talent-id="${item.id}">
                 <div class="relative aspect-[3/4]">
+                    <button class="favorite-btn absolute top-4 right-4 z-10 p-2 bg-black/30 rounded-full text-white ${isFavorited ? 'favorited' : ''}">
+                        <i data-lucide="heart" class="w-5 h-5 pointer-events-none"></i>
+                    </button>
                     <img data-src="${item.image}" src="https://placehold.co/300x400/111827/374151?text=..." alt="${item.name}" class="lazyload w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
                 <div class="p-4">
