@@ -706,7 +706,7 @@
         </div>
 
         <!-- SEARCH RESULTS MODAL -->
-        <div id="search-results-modal" class="modal-container fixed inset-0 z-[55] p-4 hidden items-start justify-center pt-12 md:pt-24">
+        <div id="search-results-modal" class="modal-container fixed inset-0 z-[55] p-4 hidden flex items-center justify-center">
             <div class="modal-overlay absolute inset-0 bg-black/70"></div>
             
             <div class="modal-content glass-modal rounded-xl w-full max-w-6xl flex flex-col h-[90vh] md:h-[80vh]">
@@ -848,7 +848,7 @@
 
     const CHAT_DATA = [
         { id: 1, name: 'ดีเจ ลีโอ', message: 'สวัสดีครับ สนใจรายละเอียดงานครับ', time: '5 นาที', unread: true, avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=100' },
-        { id: 2, name: 'คุณอารียา', message: 'ได้เลยค่ะ เดี๋ยวส่งใบเสนอราคาไปให้นะคะ', time: '1 ชม.', unread: false, avatar: 'https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?auto=compress&cs=tinysrgb&w=100' },
+        { id: 'ent-2', name: 'คุณอารียา', message: 'ได้เลยค่ะ เดี๋ยวส่งใบเสนอราคาไปให้นะคะ', time: '1 ชม.', unread: false, avatar: 'https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg?auto=compress&cs=tinysrgb&w=100' },
         { id: 3, name: 'Eventify Planners', message: 'ขอบคุณที่ใช้บริการครับ', time: '3 ชม.', unread: false, avatar: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=100' },
     ];
 
@@ -973,7 +973,7 @@
         const sliderItems = data.map(item => {
             const cardHTML = cardCreator(item);
             return `
-                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/4-1rem)] flex-shrink-0 mr-4">
+                <div class="snap-start w-[calc(100%/2-1rem)] sm:w-[calc(100%/3-1rem)] md:w-[calc(100%/4-1rem)] lg:w-[calc(100%/5-1rem)] flex-shrink-0 mr-4">
                     ${cardHTML}
                 </div>
             `;
@@ -1078,9 +1078,7 @@
         }
     }
     
-    // =========================================================
-    // === COMPLETE SLIDER CODE (MANUAL + DRAG-TO-SCROLL) ===
-    // =========================================================
+    // ========= SLIDER CONTROL FUNCTION =========
     function initializeSlider(sliderId, containerId, prevId, nextId) {
         const slider = document.getElementById(sliderId);
         const sliderContainer = document.getElementById(containerId);
@@ -1150,11 +1148,13 @@
         const modalNoResultsMsg = document.getElementById('modal-no-results-message');
 
         // --- 2. Generate Category Filters Dynamically ---
-        const uniqueCategories = ['ทุกหมวดหมู่', ...new Set(TALENT_DATA.map(t => t.category))];
-        categorySelect.innerHTML = uniqueCategories.map(cat => 
-            `<option value="${cat === 'ทุกหมวดหมู่' ? '' : cat}">${cat}</option>`
-        ).join('');
-
+        if(categorySelect) {
+            const uniqueCategories = ['ทุกหมวดหมู่', ...new Set(TALENT_DATA.map(t => t.category))];
+            categorySelect.innerHTML = uniqueCategories.map(cat => 
+                `<option value="${cat === 'ทุกหมวดหมู่' ? '' : cat}">${cat}</option>`
+            ).join('');
+        }
+        
         // --- 3. The Main Filter and Render Function ---
         function applyFiltersAndRender() {
             const keyword = keywordInput.value.toLowerCase().trim();
