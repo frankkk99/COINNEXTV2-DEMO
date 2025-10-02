@@ -349,6 +349,27 @@
             </div>
         </section>
 
+        <!-- TALENT PREVIEW -->
+        <section id="talent-preview-section" class="py-12 overflow-x-hidden">
+            <div class="container mx-auto">
+                <div class="mb-8 px-6 text-center" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">ผู้มีความสามารถ<span class="highlight-text">ยอดนิยม</span></h2>
+                </div>
+                 <div id="talent-slider" class="relative group slider-wrapper" data-aos="fade-up">
+                    <div id="talent-slider-container" class="flex items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 -mb-6 scrollbar-hide pl-6 md:pl-12 lg:pl-24">
+                        <!-- Talent cards will be injected by JS -->
+                    </div>
+                    <button id="talent-slider-prev" class="absolute top-1/2 -translate-y-1/2 left-0 w-12 h-full bg-gradient-to-r from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <i data-lucide="chevron-left" class="w-8 h-8"></i>
+                    </button>
+                    <button id="talent-slider-next" class="absolute top-1/2 -translate-y-1/2 right-0 w-12 h-full bg-gradient-to-l from-bg-dark to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+                        <i data-lucide="chevron-right" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
         <!-- INTERESTING ENTREPRENEURS -->
         <section id="interesting-entrepreneurs" class="py-12 bg-gray-900/50 overflow-x-hidden">
              <div class="container mx-auto px-6">
@@ -1211,6 +1232,7 @@
         });
 
         // --- Render other sliders & content ---
+        renderSlider('talent-slider-container', TALENT_DATA, createTalentCard);
         renderSlider('ent-slider-container', ENTREPRENEUR_DATA, createEntrepreneurCard);
         renderSlider('opportunity-slider-container', OPPORTUNITY_PARTNERS_DATA, createOpportunityCard);
         renderChatModal();
@@ -1299,6 +1321,7 @@
         });
         
         // --- Initialize Sliders ---
+        initializeSlider('talent-slider', 'talent-slider-container', 'talent-slider-prev', 'talent-slider-next');
         initializeSlider('entrepreneur-slider', 'ent-slider-container', 'ent-slider-prev', 'ent-slider-next');
         initializeSlider('opportunity-slider', 'opportunity-slider-container', 'opportunity-slider-prev', 'opportunity-slider-next');
 
