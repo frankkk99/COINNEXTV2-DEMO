@@ -3,150 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COINNEXT - หาคนทำงานใกล้คุณและหาโอกาสงานใหม่</title>
-  <meta name="description" content="COINNEXT แพลตฟอร์มหาคนทำงาน หางาน และบริการใกล้ตัว เห็นราคา รีวิว ระยะทาง และความพร้อมก่อนติดต่อ" />
+  <title>COINNEXT - หางานและหาคนทำงานใกล้คุณ</title>
+  <meta name="description" content="COINNEXT แพลตฟอร์มหาคนทำงาน หางาน และบริการใกล้ตัว ใช้งานง่าย เห็นราคา รีวิว พื้นที่ และความพร้อมก่อนติดต่อ" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest" defer></script>
   <style>
     :root {
-      --ink: #111827;
-      --muted: #4b5563;
-      --soft: #f7f5ef;
-      --card: #ffffff;
-      --line: #e5e7eb;
-      --accent: #047857;
-      --accent-soft: #d1fae5;
-      --dark: #101828;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --primary: #0f172a;
+      --primary-soft: #e2e8f0;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --warning-soft: #ffedd5;
+      --warning: #9a3412;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: 'Sarabun', 'Inter', sans-serif;
-      background: var(--soft);
-      color: var(--ink);
+      font-family: 'Sarabun', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
     }
-    h1, h2, h3, h4 { font-family: 'Inter', 'Sarabun', sans-serif; }
-    .container-page { max-width: 1180px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
-    .soft-grid {
-      background-image:
-        linear-gradient(rgba(16, 24, 40, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 24, 40, 0.04) 1px, transparent 1px);
-      background-size: 36px 36px;
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .container-page { max-width: 1120px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
     }
-    .focus-ring:focus { outline: 3px solid rgba(4, 120, 87, 0.22); outline-offset: 2px; }
-    .btn-main {
+    .btn-primary,
+    .btn-secondary,
+    .chip,
+    .input-control {
       min-height: 48px;
-      border-radius: 999px;
-      background: var(--dark);
+      border-radius: 14px;
+    }
+    .btn-primary {
+      background: var(--primary);
       color: #fff;
       font-weight: 700;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      box-shadow: 0 10px 28px rgba(16, 24, 40, 0.16);
+      border: 1px solid var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-main:hover { transform: translateY(-1px); background: #020617; box-shadow: 0 16px 34px rgba(16, 24, 40, 0.2); }
-    .btn-light {
-      min-height: 48px;
-      border-radius: 999px;
+    .btn-primary:hover { background: #020617; }
+    .btn-secondary {
       background: #fff;
-      color: var(--ink);
-      border: 1px solid var(--line);
+      color: var(--text);
       font-weight: 700;
-      transition: all .18s ease;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-light:hover { border-color: #9ca3af; transform: translateY(-1px); }
+    .btn-secondary:hover { border-color: #94a3b8; background: #f8fafc; }
     .chip {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #334155;
+      padding: 0 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .chip:hover,
+    .chip.active { background: var(--accent-soft); border-color: #99f6e4; color: #115e59; }
+    .input-control {
+      width: 100%;
       border: 1px solid var(--line);
       background: #fff;
-      color: #374151;
-      min-height: 42px;
       padding: 0 14px;
-      border-radius: 999px;
+      color: var(--text);
       font-weight: 600;
+    }
+    .input-control:focus,
+    .focus-ring:focus {
+      outline: 3px solid rgba(15, 118, 110, 0.18);
+      outline-offset: 2px;
+      border-color: #14b8a6;
+    }
+    .badge {
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
       white-space: nowrap;
-      transition: all .18s ease;
     }
-    .chip:hover, .chip.active { border-color: var(--accent); background: var(--accent-soft); color: #065f46; }
-    .card {
-      background: var(--card);
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      border-radius: 28px;
-      box-shadow: 0 18px 55px rgba(15, 23, 42, 0.06);
-    }
-    .service-card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-    .service-card:hover { transform: translateY(-4px); border-color: rgba(4, 120, 87, .35); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.10); }
-    .badge { border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
-    .badge-green { background: #dcfce7; color: #166534; }
-    .badge-blue { background: #dbeafe; color: #1e40af; }
-    .badge-orange { background: #ffedd5; color: #9a3412; }
-    .badge-gray { background: #f3f4f6; color: #374151; }
-    .hero-shadow { box-shadow: 0 30px 90px rgba(15, 23, 42, .13); }
-    .mobile-safe { padding-bottom: env(safe-area-inset-bottom); }
+    .badge-neutral { background: #f1f5f9; color: #334155; }
+    .badge-accent { background: var(--accent-soft); color: #115e59; }
+    .badge-blue { background: #dbeafe; color: #1e3a8a; }
+    .badge-orange { background: var(--warning-soft); color: var(--warning); }
+    .result-card { transition: border-color .16s ease, box-shadow .16s ease; }
+    .result-card:hover { border-color: #cbd5e1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07); }
+    .section-title { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; }
+    .mobile-bottom { padding-bottom: env(safe-area-inset-bottom); }
     @media (max-width: 640px) {
       .container-page { padding-left: 16px; padding-right: 16px; }
-      .service-card:hover { transform: none; }
+      .card { border-radius: 18px; }
+      .btn-primary, .btn-secondary, .chip, .input-control { min-height: 46px; border-radius: 12px; }
     }
   </style>
 </head>
 <body>
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-200">
-    <div class="container-page py-3 flex items-center justify-between gap-4">
-      <a href="#top" class="flex items-center gap-3" aria-label="COINNEXT หน้าแรก">
-        <span class="w-10 h-10 rounded-2xl bg-gray-950 text-white grid place-items-center font-extrabold">CN</span>
-        <span class="leading-tight">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="container-page h-16 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3" aria-label="กลับหน้าแรก COINNEXT">
+        <span class="w-10 h-10 rounded-xl bg-slate-950 text-white grid place-items-center font-extrabold">CN</span>
+        <span>
           <span class="block text-xl font-extrabold tracking-tight">COINNEXT</span>
-          <span class="hidden sm:block text-xs text-gray-500">หาคนทำงานใกล้คุณ</span>
+          <span class="hidden sm:block text-xs text-slate-500 -mt-1">หางานและบริการใกล้ตัว</span>
         </span>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-gray-600" aria-label="เมนูหลัก">
-        <a href="#search" class="hover:text-gray-950">ค้นหา</a>
-        <a href="#categories" class="hover:text-gray-950">หมวดงาน</a>
-        <a href="#how-it-works" class="hover:text-gray-950">วิธีใช้งาน</a>
-        <a href="#verified" class="hover:text-gray-950">Verified</a>
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-slate-600" aria-label="เมนูหลัก">
+        <a href="#search-panel" class="hover:text-slate-950">ค้นหา</a>
+        <a href="#categories" class="hover:text-slate-950">หมวดงาน</a>
+        <a href="#how-it-works" class="hover:text-slate-950">วิธีใช้งาน</a>
+        <a href="#post-job" class="hover:text-slate-950">ลงประกาศ</a>
       </nav>
 
       <div class="flex items-center gap-2">
-        <a href="#post-job" class="hidden sm:inline-flex btn-light px-5 items-center justify-center">ลงประกาศ</a>
-        <a href="#search" class="inline-flex btn-main px-5 items-center justify-center">เริ่มค้นหา</a>
+        <a href="#post-job" class="hidden sm:inline-flex btn-secondary px-4">ลงประกาศ</a>
+        <a href="#search-panel" class="btn-primary px-4">ค้นหา</a>
       </div>
     </div>
   </header>
 
   <main id="top">
-    <section class="soft-grid pt-10 md:pt-16 pb-10 md:pb-16">
+    <section class="py-10 md:py-14 bg-slate-50 border-b border-slate-200">
       <div class="container-page">
-        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-8 items-center">
+        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-6 lg:gap-10 items-center">
           <div>
-            <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mb-5">
-              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-              ใช้งานง่าย เห็นราคา รีวิว และพื้นที่ก่อนติดต่อ
+            <div class="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 mb-5">
+              <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+              ใช้งานง่าย เห็นข้อมูลสำคัญก่อนติดต่อ
             </div>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-gray-950">
-              หาคนทำงานใกล้คุณ<br class="hidden sm:block" /> หรือหาโอกาสงานใหม่ได้ง่ายกว่าเดิม
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-slate-950">
+              หาคนทำงานใกล้คุณ<br class="hidden sm:block" /> หรือหาโอกาสงานใหม่
             </h1>
-            <p class="mt-5 text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
-              ค้นหาคนตัดหญ้า ช่างไฟ แม่บ้าน ฟรีแลนซ์ งานรายวัน บริษัท เอกชน หน่วยงานรัฐ และคนทั่วไปที่พร้อมรับงานในพื้นที่ของคุณ
+            <p class="mt-5 text-lg md:text-xl leading-relaxed text-slate-600 max-w-2xl">
+              ค้นหาคนตัดหญ้า ช่างไฟ แม่บ้าน ฟรีแลนซ์ งานรายวัน บริษัท เอกชน หน่วยงานรัฐ และงานชุมชน ได้จากหน้าเดียว
             </p>
 
-            <div id="search" class="card hero-shadow mt-8 p-3 md:p-4">
-              <label for="main-search-input" class="sr-only">คุณกำลังหาอะไรอยู่</label>
+            <div id="search-panel" class="card mt-7 p-4 md:p-5">
+              <label for="main-search-input" class="block text-sm font-extrabold text-slate-700 mb-2">คุณกำลังหาอะไรอยู่</label>
               <div class="flex flex-col md:flex-row gap-3">
-                <div class="flex-1 flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-2xl px-4 min-h-[58px]">
-                  <i data-lucide="search" class="w-6 h-6 text-gray-500 flex-shrink-0"></i>
-                  <input id="main-search-input" type="search" class="focus-ring w-full bg-transparent outline-none text-lg placeholder:text-gray-400" placeholder="เช่น หาคนตัดหญ้าใกล้ฉัน" autocomplete="off" />
+                <div class="flex-1 flex items-center gap-3 border border-slate-200 bg-white rounded-2xl px-4 min-h-[58px]">
+                  <i data-lucide="search" class="w-6 h-6 text-slate-500 flex-shrink-0"></i>
+                  <input id="main-search-input" type="search" class="focus-ring w-full bg-transparent outline-none text-lg placeholder:text-slate-400" placeholder="เช่น หาคนตัดหญ้าใกล้ฉัน" autocomplete="off" />
                 </div>
-                <button id="main-search-btn" class="btn-main px-7 inline-flex items-center justify-center gap-2 text-lg">
+                <button id="main-search-btn" class="btn-primary px-7 text-lg">
                   ค้นหา
                   <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
               </div>
-              <div class="mt-4 flex flex-wrap gap-2" aria-label="คำค้นยอดนิยม">
+              <div class="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="คำค้นยอดนิยม">
                 <button class="quick-chip chip" data-query="ตัดหญ้า">ตัดหญ้า</button>
                 <button class="quick-chip chip" data-query="ทำความสะอาด">ทำความสะอาด</button>
                 <button class="quick-chip chip" data-query="ช่างไฟ">ช่างไฟ</button>
@@ -155,67 +186,52 @@
                 <button class="quick-chip chip" data-query="งานรายวัน">งานรายวัน</button>
               </div>
             </div>
-
-            <div class="mt-6 grid grid-cols-3 gap-3 max-w-xl">
-              <div class="bg-white border border-gray-200 rounded-2xl p-4">
-                <p class="text-2xl font-extrabold">120+</p>
-                <p class="text-sm text-gray-500">โปรไฟล์ตัวอย่าง</p>
-              </div>
-              <div class="bg-white border border-gray-200 rounded-2xl p-4">
-                <p class="text-2xl font-extrabold">4.8</p>
-                <p class="text-sm text-gray-500">คะแนนเฉลี่ย</p>
-              </div>
-              <div class="bg-white border border-gray-200 rounded-2xl p-4">
-                <p class="text-2xl font-extrabold">24 ชม.</p>
-                <p class="text-sm text-gray-500">พร้อมติดต่อ</p>
-              </div>
-            </div>
           </div>
 
-          <div class="card p-5 lg:p-6">
+          <div class="card p-5 md:p-6">
             <div class="flex items-center justify-between gap-4 mb-4">
               <div>
-                <p class="text-sm font-bold text-emerald-700">ตัวอย่างผลลัพธ์</p>
-                <h2 class="text-2xl font-extrabold">คนพร้อมรับงานใกล้คุณ</h2>
+                <p class="text-sm font-extrabold text-teal-700">ตัวอย่างผลลัพธ์</p>
+                <h2 class="text-2xl font-extrabold text-slate-950">ดูง่ายก่อนตัดสินใจ</h2>
               </div>
-              <span class="badge badge-green">เห็นข้อมูลก่อนทัก</span>
+              <span class="badge badge-accent">ราคา + รีวิว</span>
             </div>
-            <div class="space-y-3" id="hero-preview-list"></div>
+            <div id="hero-preview-list" class="space-y-3"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="categories" class="py-12 bg-white border-y border-gray-200">
+    <section id="categories" class="py-10 md:py-14 bg-white border-b border-slate-200">
       <div class="container-page">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-7">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
-            <p class="text-sm font-bold text-emerald-700">หมวดที่ค้นหาบ่อย</p>
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">เลือกจากหมวดงานได้ทันที</h2>
+            <p class="text-sm font-extrabold text-teal-700">หมวดที่ใช้บ่อย</p>
+            <h2 class="section-title text-slate-950">เลือกหมวดแล้วเริ่มหาได้ทันที</h2>
           </div>
-          <p class="text-gray-600 max-w-xl">ออกแบบให้คนทุกวัยเข้าใจง่าย ไม่ต้องจำเมนูเยอะ กดจากหมวดหรือพิมพ์ค้นหาได้เลย</p>
+          <p class="text-slate-600 max-w-xl leading-relaxed">ใช้ภาษาง่าย ปุ่มใหญ่ กดแล้วเห็นผลลัพธ์เลย เหมาะกับคนทั่วไป ฟรีแลนซ์ บริษัท และหน่วยงาน</p>
         </div>
         <div id="category-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3"></div>
       </div>
     </section>
 
-    <section class="py-12 md:py-16">
+    <section class="py-10 md:py-14">
       <div class="container-page">
-        <div class="card p-5 md:p-7">
-          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-6">
+        <div class="card p-4 md:p-6">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-5">
             <div>
-              <p class="text-sm font-bold text-emerald-700">ค้นหาและกรองผลลัพธ์</p>
-              <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">ผลลัพธ์ที่ดูง่ายในหน้าเดียว</h2>
-              <p class="mt-2 text-gray-600">ดูราคา รีวิว ระยะทาง ความพร้อม และประเภทผู้ให้บริการได้จากการ์ดเดียว</p>
+              <p class="text-sm font-extrabold text-teal-700">ผลลัพธ์</p>
+              <h2 class="section-title text-slate-950">ราคา รีวิว พื้นที่ อยู่ในการ์ดเดียว</h2>
+              <p class="mt-2 text-slate-600">ลดข้อมูลที่ไม่จำเป็น เหลือเฉพาะสิ่งที่ช่วยให้ตัดสินใจเร็ว</p>
             </div>
-            <a href="#post-job" class="btn-light px-5 inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+            <a href="#post-job" class="btn-secondary px-5 w-full sm:w-auto">
               <i data-lucide="plus-circle" class="w-5 h-5"></i>
-              ต้องการลงงาน
+              ลงประกาศ
             </a>
           </div>
 
-          <div class="grid md:grid-cols-4 gap-3 mb-5">
-            <select id="filter-type" class="focus-ring w-full min-h-[48px] rounded-2xl border border-gray-200 bg-gray-50 px-4 font-semibold text-gray-700">
+          <div class="grid md:grid-cols-4 gap-3 mb-4">
+            <select id="filter-type" class="input-control">
               <option value="">ทุกประเภท</option>
               <option value="บุคคลทั่วไป">บุคคลทั่วไป</option>
               <option value="ฟรีแลนซ์">ฟรีแลนซ์</option>
@@ -223,7 +239,7 @@
               <option value="หน่วยงานรัฐ/ชุมชน">หน่วยงานรัฐ/ชุมชน</option>
               <option value="งานเปิดรับ">งานเปิดรับ</option>
             </select>
-            <select id="filter-province" class="focus-ring w-full min-h-[48px] rounded-2xl border border-gray-200 bg-gray-50 px-4 font-semibold text-gray-700">
+            <select id="filter-province" class="input-control">
               <option value="">ทุกจังหวัด</option>
               <option value="นครราชสีมา">นครราชสีมา</option>
               <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
@@ -231,134 +247,134 @@
               <option value="ขอนแก่น">ขอนแก่น</option>
               <option value="ชลบุรี">ชลบุรี</option>
             </select>
-            <select id="filter-availability" class="focus-ring w-full min-h-[48px] rounded-2xl border border-gray-200 bg-gray-50 px-4 font-semibold text-gray-700">
+            <select id="filter-availability" class="input-control">
               <option value="">ความพร้อมทั้งหมด</option>
               <option value="วันนี้">วันนี้</option>
               <option value="พรุ่งนี้">พรุ่งนี้</option>
               <option value="สัปดาห์นี้">สัปดาห์นี้</option>
             </select>
-            <button id="clear-filters" class="btn-light px-5 inline-flex items-center justify-center gap-2">
+            <button id="clear-filters" class="btn-secondary px-5">
               <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
               ล้างตัวกรอง
             </button>
           </div>
 
-          <div class="flex flex-wrap gap-2 mb-6" id="category-filter-row"></div>
+          <div id="category-filter-row" class="flex gap-2 overflow-x-auto pb-2 mb-4"></div>
 
           <div class="flex items-center justify-between gap-4 mb-4">
-            <p class="font-bold text-gray-800">พบ <span id="result-count" class="text-emerald-700">0</span> รายการ</p>
-            <p class="hidden sm:block text-sm text-gray-500">ข้อมูลนี้เป็น mock data สำหรับ demo</p>
+            <p class="font-extrabold text-slate-800">พบ <span id="result-count" class="text-teal-700">0</span> รายการ</p>
+            <p class="hidden sm:block text-sm text-slate-500">ข้อมูลตัวอย่างสำหรับ demo</p>
           </div>
 
           <div id="results-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
           <div id="empty-state" class="hidden text-center py-14">
-            <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 grid place-items-center mb-4">
-              <i data-lucide="search-x" class="w-8 h-8 text-gray-500"></i>
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-100 grid place-items-center mb-4">
+              <i data-lucide="search-x" class="w-8 h-8 text-slate-500"></i>
             </div>
-            <h3 class="text-2xl font-extrabold">ยังไม่พบรายการที่ตรงกัน</h3>
-            <p class="text-gray-600 mt-2">ลองใช้คำกว้างขึ้น เช่น ช่าง, งานรายวัน, ตัดต่อ หรือเลือกทุกจังหวัด</p>
+            <h3 class="text-2xl font-extrabold text-slate-950">ยังไม่พบรายการที่ตรงกัน</h3>
+            <p class="text-slate-600 mt-2">ลองใช้คำกว้างขึ้น เช่น ช่าง, งานรายวัน, ตัดต่อ หรือเลือกทุกจังหวัด</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="how-it-works" class="py-12 md:py-16 bg-white border-y border-gray-200">
+    <section id="how-it-works" class="py-10 md:py-14 bg-white border-y border-slate-200">
       <div class="container-page">
-        <div class="text-center max-w-3xl mx-auto mb-9">
-          <p class="text-sm font-bold text-emerald-700">ใช้งานง่ายมาก</p>
-          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">3 ขั้นตอนที่คนทั่วไปก็ใช้ได้</h2>
+        <div class="max-w-3xl mb-7">
+          <p class="text-sm font-extrabold text-teal-700">วิธีใช้งาน</p>
+          <h2 class="section-title text-slate-950">3 ขั้นตอนสั้น ๆ</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-5">
-          <div class="card p-7">
-            <span class="w-12 h-12 rounded-2xl bg-gray-950 text-white grid place-items-center font-extrabold mb-5">1</span>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="card p-6">
+            <span class="w-11 h-11 rounded-xl bg-slate-950 text-white grid place-items-center font-extrabold mb-4">1</span>
             <h3 class="text-xl font-extrabold mb-2">พิมพ์สิ่งที่ต้องการ</h3>
-            <p class="text-gray-600">เช่น หาคนตัดหญ้าใกล้ฉัน หรือหางานรายวันใกล้บ้าน</p>
+            <p class="text-slate-600 leading-relaxed">เช่น หาคนตัดหญ้าใกล้ฉัน หรือหางานรายวันใกล้บ้าน</p>
           </div>
-          <div class="card p-7">
-            <span class="w-12 h-12 rounded-2xl bg-gray-950 text-white grid place-items-center font-extrabold mb-5">2</span>
-            <h3 class="text-xl font-extrabold mb-2">ดูราคา รีวิว ระยะทาง</h3>
-            <p class="text-gray-600">ตัดสินใจง่ายขึ้นจากข้อมูลสำคัญที่เห็นบนการ์ดทันที</p>
+          <div class="card p-6">
+            <span class="w-11 h-11 rounded-xl bg-slate-950 text-white grid place-items-center font-extrabold mb-4">2</span>
+            <h3 class="text-xl font-extrabold mb-2">ดูข้อมูลสำคัญ</h3>
+            <p class="text-slate-600 leading-relaxed">ราคา รีวิว พื้นที่ ความพร้อม และประเภทผู้ให้บริการแสดงชัดเจน</p>
           </div>
-          <div class="card p-7">
-            <span class="w-12 h-12 rounded-2xl bg-gray-950 text-white grid place-items-center font-extrabold mb-5">3</span>
-            <h3 class="text-xl font-extrabold mb-2">ทัก สอบถาม หรือสมัคร</h3>
-            <p class="text-gray-600">กดติดต่อจากหน้าเว็บ ลดขั้นตอน ไม่ต้องหาเบอร์ตามโพสต์ยาว ๆ</p>
+          <div class="card p-6">
+            <span class="w-11 h-11 rounded-xl bg-slate-950 text-white grid place-items-center font-extrabold mb-4">3</span>
+            <h3 class="text-xl font-extrabold mb-2">ทักหรือสมัคร</h3>
+            <p class="text-slate-600 leading-relaxed">กดดูรายละเอียด ติดต่อ ขอราคา หรือสมัครงานจากการ์ดได้ทันที</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="post-job" class="py-12 md:py-16">
+    <section id="post-job" class="py-10 md:py-14">
       <div class="container-page">
-        <div class="grid lg:grid-cols-2 gap-6 items-stretch">
-          <div class="card p-7 bg-gray-950 text-white border-gray-900">
-            <p class="text-sm font-bold text-emerald-300">สำหรับคนต้องการจ้าง</p>
-            <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">ลงงานสั้น ๆ ให้คนใกล้คุณเห็น</h2>
-            <p class="mt-4 text-gray-300 text-lg">บอกงาน พื้นที่ งบประมาณ และวันที่ต้องการ ระบบจะช่วยให้คนรับงานเข้าใจเร็วขึ้น</p>
-            <div class="mt-7 grid sm:grid-cols-2 gap-3 text-sm">
-              <div class="bg-white/10 rounded-2xl p-4">ระบุงบประมาณได้</div>
-              <div class="bg-white/10 rounded-2xl p-4">แนบรูปหน้างานได้</div>
-              <div class="bg-white/10 rounded-2xl p-4">ใช้ได้ทั้งงานบ้านและงานบริษัท</div>
+        <div class="grid lg:grid-cols-2 gap-5 items-stretch">
+          <div class="card p-6 md:p-7 bg-slate-950 text-white border-slate-900">
+            <p class="text-sm font-extrabold text-teal-300">สำหรับคนต้องการจ้าง</p>
+            <h2 class="mt-2 section-title text-white">ลงงานให้เข้าใจง่าย</h2>
+            <p class="mt-4 text-slate-300 text-lg leading-relaxed">บอกงาน พื้นที่ งบประมาณ และวันที่ต้องการ เพื่อให้คนรับงานประเมินได้เร็ว</p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-3 text-sm font-semibold">
+              <div class="bg-white/10 rounded-2xl p-4">ระบุงบประมาณ</div>
+              <div class="bg-white/10 rounded-2xl p-4">แนบรูปหน้างาน</div>
+              <div class="bg-white/10 rounded-2xl p-4">ใช้ได้กับงานบ้านและบริษัท</div>
               <div class="bg-white/10 rounded-2xl p-4">เหมาะกับงานด่วน</div>
             </div>
-            <a href="#search" class="mt-7 inline-flex btn-main bg-white text-gray-950 hover:bg-gray-100 px-6 items-center justify-center">ดูตัวอย่างก่อน</a>
+            <a href="#search-panel" class="mt-6 inline-flex btn-secondary px-6 bg-white text-slate-950 border-white">ดูตัวอย่างผลลัพธ์</a>
           </div>
 
-          <form class="card p-7" onsubmit="event.preventDefault(); alert('Demo: บันทึกตัวอย่างประกาศแล้ว');">
+          <form class="card p-6 md:p-7" onsubmit="event.preventDefault(); alert('Demo: บันทึกตัวอย่างประกาศแล้ว');">
             <h3 class="text-2xl font-extrabold mb-5">ตัวอย่างฟอร์มลงงาน</h3>
             <div class="space-y-4">
               <label class="block">
-                <span class="block font-bold mb-2">ต้องการให้ช่วยทำอะไร</span>
-                <input class="focus-ring w-full min-h-[50px] rounded-2xl border border-gray-200 bg-gray-50 px-4" placeholder="เช่น ตัดหญ้าหน้าบ้าน" />
+                <span class="block font-extrabold mb-2">ต้องการให้ช่วยทำอะไร</span>
+                <input class="input-control" placeholder="เช่น ตัดหญ้าหน้าบ้าน" />
               </label>
               <label class="block">
-                <span class="block font-bold mb-2">พื้นที่</span>
-                <input class="focus-ring w-full min-h-[50px] rounded-2xl border border-gray-200 bg-gray-50 px-4" placeholder="เช่น ตัวเมืองนครราชสีมา" />
+                <span class="block font-extrabold mb-2">พื้นที่</span>
+                <input class="input-control" placeholder="เช่น ตัวเมืองนครราชสีมา" />
               </label>
               <div class="grid sm:grid-cols-2 gap-4">
                 <label class="block">
-                  <span class="block font-bold mb-2">งบประมาณ</span>
-                  <input class="focus-ring w-full min-h-[50px] rounded-2xl border border-gray-200 bg-gray-50 px-4" placeholder="300 - 500 บาท" />
+                  <span class="block font-extrabold mb-2">งบประมาณ</span>
+                  <input class="input-control" placeholder="300 - 500 บาท" />
                 </label>
                 <label class="block">
-                  <span class="block font-bold mb-2">ต้องการเมื่อไหร่</span>
-                  <select class="focus-ring w-full min-h-[50px] rounded-2xl border border-gray-200 bg-gray-50 px-4">
+                  <span class="block font-extrabold mb-2">ต้องการเมื่อไหร่</span>
+                  <select class="input-control">
                     <option>วันนี้</option>
                     <option>พรุ่งนี้</option>
                     <option>สัปดาห์นี้</option>
                   </select>
                 </label>
               </div>
-              <button class="btn-main w-full text-lg">โพสต์งานตัวอย่าง</button>
+              <button class="btn-primary w-full text-lg">โพสต์งานตัวอย่าง</button>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <section id="verified" class="py-12 md:py-16 bg-white border-y border-gray-200">
+    <section class="py-10 md:py-14 bg-white border-y border-slate-200">
       <div class="container-page">
-        <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-6 items-center">
+        <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-5 items-center">
           <div>
-            <p class="text-sm font-bold text-emerald-700">Verified Profile</p>
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">เพิ่มความน่าเชื่อถือ แต่ไม่บังคับใช้งาน</h2>
-            <p class="mt-4 text-gray-600 text-lg">ทุกคนค้นหาและลงข้อมูลพื้นฐานได้ฟรี ส่วน Verified ใช้สำหรับคนรับงานหรือองค์กรที่อยากสร้างความมั่นใจมากขึ้น</p>
+            <p class="text-sm font-extrabold text-teal-700">ความน่าเชื่อถือ</p>
+            <h2 class="section-title text-slate-950">Verified เป็นตัวเสริม ไม่รบกวนการใช้งาน</h2>
+            <p class="mt-4 text-slate-600 text-lg leading-relaxed">ผู้ใช้ทั่วไปยังค้นหาและลงข้อมูลพื้นฐานได้ง่าย ส่วน Verified ช่วยเพิ่มความมั่นใจให้ผู้จ้าง</p>
           </div>
           <div class="grid md:grid-cols-3 gap-4">
-            <div class="card p-6">
+            <div class="card p-5">
               <span class="badge badge-blue">Basic</span>
               <h3 class="text-2xl font-extrabold mt-4">99 บาท</h3>
-              <p class="text-gray-600 mt-2">ป้ายยืนยัน + เพิ่มการมองเห็น</p>
+              <p class="text-slate-600 mt-2">ป้ายยืนยัน + เพิ่มการมองเห็น</p>
             </div>
-            <div class="card p-6 border-emerald-300">
-              <span class="badge badge-green">แนะนำ</span>
+            <div class="card p-5 border-teal-200">
+              <span class="badge badge-accent">แนะนำ</span>
               <h3 class="text-2xl font-extrabold mt-4">199 บาท</h3>
-              <p class="text-gray-600 mt-2">แสดงในหน้าแนะนำ + โปรไฟล์เด่น</p>
+              <p class="text-slate-600 mt-2">โปรไฟล์เด่น + แสดงหน้าแนะนำ</p>
             </div>
-            <div class="card p-6">
+            <div class="card p-5">
               <span class="badge badge-orange">Premium</span>
               <h3 class="text-2xl font-extrabold mt-4">349 บาท</h3>
-              <p class="text-gray-600 mt-2">สถิติ + พื้นที่โปรโมทพาร์ทเนอร์</p>
+              <p class="text-slate-600 mt-2">สถิติ + พื้นที่โปรโมท</p>
             </div>
           </div>
         </div>
@@ -366,23 +382,23 @@
     </section>
   </main>
 
-  <footer class="bg-gray-950 text-white py-10 mobile-safe">
+  <footer class="bg-slate-950 text-white py-10 mobile-bottom">
     <div class="container-page grid md:grid-cols-4 gap-8">
       <div class="md:col-span-2">
         <h3 class="text-2xl font-extrabold">COINNEXT</h3>
-        <p class="mt-3 text-gray-300 max-w-xl">แพลตฟอร์มหาคนทำงาน หางาน และบริการใกล้ตัว สำหรับคนทั่วไป ฟรีแลนซ์ บริษัท เอกชน หน่วยงานรัฐ และงานชุมชน</p>
+        <p class="mt-3 text-slate-300 max-w-xl leading-relaxed">แพลตฟอร์มหาคนทำงาน หางาน และบริการใกล้ตัว สำหรับคนทั่วไป ฟรีแลนซ์ บริษัท เอกชน หน่วยงานรัฐ และงานชุมชน</p>
       </div>
       <div>
-        <h4 class="font-bold mb-3">เมนู</h4>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#search" class="hover:text-white">ค้นหา</a></li>
+        <h4 class="font-extrabold mb-3">เมนู</h4>
+        <ul class="space-y-2 text-slate-300">
+          <li><a href="#search-panel" class="hover:text-white">ค้นหา</a></li>
           <li><a href="#categories" class="hover:text-white">หมวดงาน</a></li>
           <li><a href="#post-job" class="hover:text-white">ลงประกาศ</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold mb-3">ความปลอดภัย</h4>
-        <ul class="space-y-2 text-gray-300">
+        <h4 class="font-extrabold mb-3">ความปลอดภัย</h4>
+        <ul class="space-y-2 text-slate-300">
           <li>รีวิวหลังจบงาน</li>
           <li>โปรไฟล์ยืนยันตัวตน</li>
           <li>รายงานผู้ใช้งานได้</li>
@@ -391,9 +407,9 @@
     </div>
   </footer>
 
-  <button id="floating-search" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 btn-main px-6 md:hidden inline-flex items-center justify-center gap-2">
+  <button id="floating-search" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 btn-primary px-6 md:hidden mobile-bottom">
     <i data-lucide="search" class="w-5 h-5"></i>
-    ค้นหางาน/คน
+    ค้นหา
   </button>
 
   <script>
@@ -408,16 +424,16 @@
     ];
 
     const WORK_ITEMS = [
-      { id: 1, title: 'รับตัดหญ้าบ้าน สวน และที่ดิน', provider: 'ช่างเอก ทีมสวนโคราช', type: 'บุคคลทั่วไป', category: 'งานสวน', province: 'นครราชสีมา', area: 'ตัวเมืองโคราช', distance: '2.1 กม.', price: 'เริ่มต้น 350 บาท', rating: 4.9, reviews: 58, availability: 'วันนี้', verified: true, tags: ['ตัดหญ้า', 'สวน', 'งานใกล้ฉัน'], description: 'รับงานบ้านเดี่ยว ร้านค้า และที่ดินขนาดเล็ก-กลาง พร้อมเก็บกวาดหลังงาน' },
+      { id: 1, title: 'รับตัดหญ้าบ้าน สวน และที่ดิน', provider: 'ช่างเอก ทีมสวนโคราช', type: 'บุคคลทั่วไป', category: 'งานสวน', province: 'นครราชสีมา', area: 'ตัวเมืองโคราช', distance: '2.1 กม.', price: 'เริ่มต้น 350 บาท', rating: 4.9, reviews: 58, availability: 'วันนี้', verified: true, tags: ['ตัดหญ้า', 'สวน', 'งานใกล้ฉัน'], description: 'รับงานบ้านเดี่ยว ร้านค้า และที่ดินขนาดเล็กถึงกลาง พร้อมเก็บกวาดหลังงาน' },
       { id: 2, title: 'แม่บ้านรายวัน ทำความสะอาดบ้าน', provider: 'คุณมะลิ แม่บ้านโคราช', type: 'บุคคลทั่วไป', category: 'งานบ้าน', province: 'นครราชสีมา', area: 'จอหอ / บ้านเกาะ', distance: '4.8 กม.', price: 'เริ่มต้น 500 บาท/วัน', rating: 4.8, reviews: 41, availability: 'พรุ่งนี้', verified: true, tags: ['ทำความสะอาด', 'แม่บ้าน', 'รายวัน'], description: 'ทำความสะอาดทั่วไป จัดบ้าน ซักล้างเบื้องต้น เหมาะกับครอบครัวและออฟฟิศเล็ก' },
       { id: 3, title: 'ช่างไฟ ตรวจระบบไฟ ซ่อมปลั๊ก ติดโคม', provider: 'ทีมช่างไฟโคราช 24 ชม.', type: 'บริษัท', category: 'งานช่าง', province: 'นครราชสีมา', area: 'ทั้งจังหวัด', distance: '6.3 กม.', price: 'เริ่มต้น 400 บาท', rating: 4.7, reviews: 86, availability: 'วันนี้', verified: true, tags: ['ช่างไฟ', 'ซ่อมไฟ', 'ติดตั้ง'], description: 'รับงานไฟบ้าน ร้านค้า ออฟฟิศ มีทีมเข้าหน้างานและออกใบเสนอราคาได้' },
       { id: 4, title: 'ล้างแอร์บ้านและสำนักงาน', provider: 'ช่างต้อม แอร์เซอร์วิส', type: 'บุคคลทั่วไป', category: 'งานช่าง', province: 'นครราชสีมา', area: 'เซฟวัน / เดอะมอลล์', distance: '3.5 กม.', price: 'เริ่มต้น 500 บาท/เครื่อง', rating: 4.9, reviews: 73, availability: 'สัปดาห์นี้', verified: false, tags: ['ช่างแอร์', 'ล้างแอร์', 'แอร์บ้าน'], description: 'ล้างแอร์ ติดตั้ง ย้ายจุด เติมน้ำยา นัดหมายเป็นรอบเวลาได้' },
       { id: 5, title: 'ตัดต่อวิดีโอ TikTok / Reels / Ads', provider: 'Frank Creative', type: 'ฟรีแลนซ์', category: 'ฟรีแลนซ์', province: 'นครราชสีมา', area: 'ออนไลน์ / โคราช', distance: 'ออนไลน์', price: 'เริ่มต้น 800 บาท/คลิป', rating: 4.9, reviews: 32, availability: 'วันนี้', verified: true, tags: ['ตัดต่อวิดีโอ', 'กราฟิก', 'คอนเทนต์'], description: 'รับตัดต่อคลิปสั้น โฆษณา วิดีโอร้านค้า พร้อมใส่ซับและจัดจังหวะให้น่าสนใจ' },
       { id: 6, title: 'ออกแบบโลโก้และแพ็กเกจจิ้ง', provider: 'Pixel Local Studio', type: 'ฟรีแลนซ์', category: 'ฟรีแลนซ์', province: 'กรุงเทพมหานคร', area: 'ออนไลน์', distance: 'ออนไลน์', price: 'เริ่มต้น 3,000 บาท', rating: 4.8, reviews: 27, availability: 'สัปดาห์นี้', verified: true, tags: ['ออกแบบโลโก้', 'packaging', 'graphic'], description: 'เหมาะกับร้านค้า SME สินค้าชุมชน และแบรนด์เริ่มต้นที่ต้องการภาพลักษณ์ชัดขึ้น' },
-      { id: 7, title: 'รับสมัครพนักงานแพ็กของรายวัน', provider: 'บริษัท ABC Fulfillment', type: 'งานเปิดรับ', category: 'งานรายวัน', province: 'กรุงเทพมหานคร', area: 'ลาดกระบัง', distance: 'ใกล้ Airport Link', price: '480 บาท/วัน', rating: 4.6, reviews: 18, availability: 'พรุ่งนี้', verified: true, tags: ['งานรายวัน', 'แพ็กของ', 'พาร์ทไทม์'], description: 'ไม่จำกัดวุฒิ มีรอบเช้า-บ่าย สมัครง่าย เหมาะกับนักศึกษาและคนหางานชั่วคราว' },
+      { id: 7, title: 'รับสมัครพนักงานแพ็กของรายวัน', provider: 'บริษัท ABC Fulfillment', type: 'งานเปิดรับ', category: 'งานรายวัน', province: 'กรุงเทพมหานคร', area: 'ลาดกระบัง', distance: 'ใกล้ Airport Link', price: '480 บาท/วัน', rating: 4.6, reviews: 18, availability: 'พรุ่งนี้', verified: true, tags: ['งานรายวัน', 'แพ็กของ', 'พาร์ทไทม์'], description: 'ไม่จำกัดวุฒิ มีรอบเช้าและบ่าย สมัครง่าย เหมาะกับนักศึกษาและคนหางานชั่วคราว' },
       { id: 8, title: 'ผู้ช่วยร้านอาหาร เสาร์-อาทิตย์', provider: 'ร้านครัวบ้านเรา', type: 'งานเปิดรับ', category: 'งานรายวัน', province: 'เชียงใหม่', area: 'นิมมาน', distance: '1.9 กม.', price: '450 บาท/วัน', rating: 4.5, reviews: 22, availability: 'สัปดาห์นี้', verified: false, tags: ['ร้านอาหาร', 'พาร์ทไทม์', 'งานเสาร์อาทิตย์'], description: 'ช่วยเสิร์ฟ เก็บโต๊ะ เตรียมของ เหมาะกับคนที่ต้องการรายได้เสริมวันหยุด' },
       { id: 9, title: 'ทีมขนของ ย้ายหอ ย้ายบ้าน', provider: 'MoveNow ขนส่งในเมือง', type: 'บริษัท', category: 'งานบ้าน', province: 'ชลบุรี', area: 'พัทยา / ศรีราชา', distance: '5.2 กม.', price: 'เริ่มต้น 800 บาท', rating: 4.7, reviews: 64, availability: 'วันนี้', verified: true, tags: ['ขนของ', 'ย้ายบ้าน', 'รถกระบะ'], description: 'มีรถกระบะและทีมยกของ รับงานเร่งด่วนและนัดล่วงหน้าได้' },
-      { id: 10, title: 'ช่างประปา ซ่อมน้ำรั่ว เปลี่ยนก๊อก', provider: 'ช่างไผ่ ประปาใกล้บ้าน', type: 'บุคคลทั่วไป', category: 'งานช่าง', province: 'ขอนแก่น', area: 'ในเมืองขอนแก่น', distance: '3.0 กม.', price: 'เริ่มต้น 300 บาท', rating: 4.8, reviews: 37, availability: 'วันนี้', verified: false, tags: ['ช่างประปา', 'ซ่อมน้ำรั่ว', 'ติดตั้ง'], description: 'รับซ่อมงานประปาเล็ก-กลาง เปลี่ยนอุปกรณ์สุขภัณฑ์ และตรวจจุดรั่วเบื้องต้น' },
+      { id: 10, title: 'ช่างประปา ซ่อมน้ำรั่ว เปลี่ยนก๊อก', provider: 'ช่างไผ่ ประปาใกล้บ้าน', type: 'บุคคลทั่วไป', category: 'งานช่าง', province: 'ขอนแก่น', area: 'ในเมืองขอนแก่น', distance: '3.0 กม.', price: 'เริ่มต้น 300 บาท', rating: 4.8, reviews: 37, availability: 'วันนี้', verified: false, tags: ['ช่างประปา', 'ซ่อมน้ำรั่ว', 'ติดตั้ง'], description: 'รับซ่อมงานประปาเล็กถึงกลาง เปลี่ยนอุปกรณ์สุขภัณฑ์ และตรวจจุดรั่วเบื้องต้น' },
       { id: 11, title: 'โครงการจ้างงานดูแลพื้นที่สาธารณะ', provider: 'เทศบาลเมืองนครราชสีมา', type: 'หน่วยงานรัฐ/ชุมชน', category: 'งานรัฐ/ชุมชน', province: 'นครราชสีมา', area: 'เขตเทศบาล', distance: '2.8 กม.', price: 'รายวัน / ตามโครงการ', rating: 4.7, reviews: 12, availability: 'สัปดาห์นี้', verified: true, tags: ['งานรัฐ', 'งานชุมชน', 'ดูแลพื้นที่'], description: 'ตัวอย่างพื้นที่สำหรับประกาศงานชุมชน งานสาธารณะ และโครงการจ้างงานระยะสั้น' },
       { id: 12, title: 'กลุ่มวิสาหกิจชุมชนรับเย็บผ้า', provider: 'กลุ่มแม่บ้านบ้านใหม่', type: 'หน่วยงานรัฐ/ชุมชน', category: 'งานรัฐ/ชุมชน', province: 'นครราชสีมา', area: 'บ้านใหม่', distance: '7.0 กม.', price: 'ประเมินตามจำนวนชิ้น', rating: 4.9, reviews: 19, availability: 'สัปดาห์นี้', verified: true, tags: ['เย็บผ้า', 'งานชุมชน', 'ผลิตสินค้า'], description: 'รับผลิตงานผ้า ของที่ระลึก กระเป๋า และสินค้าชุมชนสำหรับองค์กรหรือร้านค้า' }
     ];
@@ -431,45 +447,56 @@
     const emptyState = document.getElementById('empty-state');
     let activeCategory = '';
 
+    function normalize(text) {
+      return (text || '').toString().toLowerCase().trim();
+    }
+
     function getTypeBadge(type) {
       if (type === 'บริษัท') return 'badge-blue';
-      if (type === 'หน่วยงานรัฐ/ชุมชน') return 'badge-green';
+      if (type === 'หน่วยงานรัฐ/ชุมชน') return 'badge-accent';
       if (type === 'งานเปิดรับ') return 'badge-orange';
-      return 'badge-gray';
+      return 'badge-neutral';
+    }
+
+    function matchKeyword(item, query) {
+      if (!query) return true;
+      const haystack = normalize([item.title, item.provider, item.type, item.category, item.province, item.area, item.price, item.availability, item.tags.join(' '), item.description].join(' '));
+      if (haystack.includes(query)) return true;
+      return item.tags.some(tag => query.includes(normalize(tag))) || query.includes(normalize(item.category));
     }
 
     function cardTemplate(item) {
       const actionText = item.type === 'งานเปิดรับ' || item.type === 'หน่วยงานรัฐ/ชุมชน' ? 'สมัคร / ดูงาน' : 'ทัก / ขอราคา';
       return `
-        <article class="service-card card p-5 flex flex-col h-full" data-id="${item.id}">
+        <article class="result-card card p-5 flex flex-col h-full" data-id="${item.id}">
           <div class="flex items-start justify-between gap-3 mb-4">
-            <div>
+            <div class="flex flex-wrap gap-2">
               <span class="badge ${getTypeBadge(item.type)}">${item.type}</span>
-              ${item.verified ? '<span class="badge badge-green ml-2">Verified</span>' : ''}
+              ${item.verified ? '<span class="badge badge-accent">Verified</span>' : ''}
             </div>
-            <button class="w-10 h-10 rounded-full border border-gray-200 grid place-items-center hover:bg-gray-50" aria-label="บันทึกรายการโปรด">
-              <i data-lucide="heart" class="w-5 h-5 text-gray-500"></i>
+            <button class="w-10 h-10 rounded-xl border border-slate-200 grid place-items-center hover:bg-slate-50" aria-label="บันทึกรายการโปรด">
+              <i data-lucide="heart" class="w-5 h-5 text-slate-500"></i>
             </button>
           </div>
-          <h3 class="text-xl font-extrabold leading-snug mb-2">${item.title}</h3>
-          <p class="font-semibold text-gray-700 mb-3">โดย ${item.provider}</p>
-          <p class="text-gray-600 leading-relaxed mb-4 flex-1">${item.description}</p>
+          <h3 class="text-xl font-extrabold leading-snug mb-2 text-slate-950">${item.title}</h3>
+          <p class="font-bold text-slate-700 mb-3">โดย ${item.provider}</p>
+          <p class="text-slate-600 leading-relaxed mb-4 flex-1">${item.description}</p>
           <div class="grid grid-cols-2 gap-2 text-sm mb-4">
-            <div class="rounded-2xl bg-gray-50 p-3"><span class="block text-gray-500">ราคา/ค่าจ้าง</span><strong>${item.price}</strong></div>
-            <div class="rounded-2xl bg-gray-50 p-3"><span class="block text-gray-500">รีวิว</span><strong>${item.rating} (${item.reviews})</strong></div>
-            <div class="rounded-2xl bg-gray-50 p-3"><span class="block text-gray-500">พื้นที่</span><strong>${item.area}</strong></div>
-            <div class="rounded-2xl bg-gray-50 p-3"><span class="block text-gray-500">พร้อม</span><strong>${item.availability}</strong></div>
+            <div class="rounded-2xl bg-slate-50 p-3"><span class="block text-slate-500">ราคา/ค่าจ้าง</span><strong>${item.price}</strong></div>
+            <div class="rounded-2xl bg-slate-50 p-3"><span class="block text-slate-500">รีวิว</span><strong>${item.rating} (${item.reviews})</strong></div>
+            <div class="rounded-2xl bg-slate-50 p-3"><span class="block text-slate-500">พื้นที่</span><strong>${item.area}</strong></div>
+            <div class="rounded-2xl bg-slate-50 p-3"><span class="block text-slate-500">พร้อม</span><strong>${item.availability}</strong></div>
           </div>
-          <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
             <i data-lucide="map-pin" class="w-4 h-4"></i>
             <span>${item.province} · ${item.distance}</span>
           </div>
           <div class="flex flex-wrap gap-2 mb-5">
-            ${item.tags.slice(0,3).map(tag => `<span class="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-bold">${tag}</span>`).join('')}
+            ${item.tags.slice(0,3).map(tag => `<span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-extrabold">${tag}</span>`).join('')}
           </div>
           <div class="grid grid-cols-2 gap-2 mt-auto">
-            <button class="btn-light px-4">รายละเอียด</button>
-            <button class="btn-main px-4">${actionText}</button>
+            <button class="btn-secondary px-4">รายละเอียด</button>
+            <button class="btn-primary px-4">${actionText}</button>
           </div>
         </article>
       `;
@@ -477,13 +504,13 @@
 
     function previewTemplate(item) {
       return `
-        <div class="border border-gray-200 rounded-3xl p-4 flex items-center gap-4 bg-gray-50">
-          <div class="w-14 h-14 rounded-2xl bg-gray-950 text-white grid place-items-center font-extrabold flex-shrink-0">${item.provider.slice(0,2)}</div>
+        <div class="border border-slate-200 rounded-2xl p-4 flex items-center gap-4 bg-white">
+          <div class="w-12 h-12 rounded-xl bg-slate-950 text-white grid place-items-center font-extrabold flex-shrink-0">${item.provider.slice(0,2)}</div>
           <div class="min-w-0 flex-1">
-            <p class="font-extrabold truncate">${item.title}</p>
-            <p class="text-sm text-gray-600 truncate">${item.price} · ${item.distance} · ${item.availability}</p>
+            <p class="font-extrabold truncate text-slate-950">${item.title}</p>
+            <p class="text-sm text-slate-600 truncate">${item.price} · ${item.distance} · ${item.availability}</p>
           </div>
-          <span class="badge badge-green hidden sm:inline-block">${item.rating}</span>
+          <span class="badge badge-accent hidden sm:inline-flex">${item.rating}</span>
         </div>
       `;
     }
@@ -491,10 +518,10 @@
     function renderCategories() {
       const categoryGrid = document.getElementById('category-grid');
       categoryGrid.innerHTML = CATEGORIES.map(cat => `
-        <button class="category-card card p-4 text-left hover:border-emerald-300 transition" data-category="${cat.label}">
-          <i data-lucide="${cat.icon}" class="w-7 h-7 text-emerald-700 mb-3"></i>
-          <span class="block font-extrabold">${cat.label}</span>
-          <span class="text-sm text-gray-500">กดเพื่อกรอง</span>
+        <button class="category-card card p-4 text-left hover:border-slate-300 transition" data-category="${cat.label}">
+          <i data-lucide="${cat.icon}" class="w-7 h-7 text-teal-700 mb-3"></i>
+          <span class="block font-extrabold text-slate-950">${cat.label}</span>
+          <span class="text-sm text-slate-500">กดเพื่อกรอง</span>
         </button>
       `).join('');
 
@@ -504,8 +531,6 @@
       `).join('');
     }
 
-    function normalize(text) { return (text || '').toString().toLowerCase().trim(); }
-
     function filterItems() {
       const keyword = normalize(searchInput.value);
       const type = typeFilter.value;
@@ -513,8 +538,7 @@
       const availability = availabilityFilter.value;
 
       return WORK_ITEMS.filter(item => {
-        const haystack = normalize([item.title, item.provider, item.type, item.category, item.province, item.area, item.price, item.availability, item.tags.join(' '), item.description].join(' '));
-        const matchesKeyword = !keyword || haystack.includes(keyword);
+        const matchesKeyword = matchKeyword(item, keyword);
         const matchesCategory = !activeCategory || item.category === activeCategory;
         const matchesType = !type || item.type === type;
         const matchesProvince = !province || item.province === province;
@@ -536,7 +560,7 @@
       activeCategory = category;
       document.querySelectorAll('.category-filter').forEach(btn => btn.classList.toggle('active', btn.dataset.category === category));
       renderResults();
-      document.getElementById('search').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('search-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -557,7 +581,7 @@
       document.querySelectorAll('.category-card').forEach(btn => btn.addEventListener('click', () => setCategory(btn.dataset.category)));
       document.querySelectorAll('.category-filter').forEach(btn => btn.addEventListener('click', () => setCategory(btn.dataset.category)));
 
-      [searchInput, typeFilter, provinceFilter, availabilityFilter].forEach(el => el.addEventListener('input', renderResults));
+      searchInput.addEventListener('input', renderResults);
       [typeFilter, provinceFilter, availabilityFilter].forEach(el => el.addEventListener('change', renderResults));
 
       document.getElementById('main-search-btn').addEventListener('click', () => {
@@ -576,7 +600,7 @@
       });
 
       document.getElementById('floating-search').addEventListener('click', () => {
-        document.getElementById('search').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('search-panel').scrollIntoView({ behavior: 'smooth' });
         setTimeout(() => searchInput.focus(), 350);
       });
 
