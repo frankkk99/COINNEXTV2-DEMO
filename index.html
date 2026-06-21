@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COINNEXT - หาคนทำงานใกล้บ้าน</title>
-  <meta name="description" content="COINNEXT เว็บค้นหาคนรับงานและงานใกล้บ้าน ใช้งานง่าย พิมพ์สิ่งที่ต้องการแล้วดูการ์ดราคา รีวิว ระยะทาง และคะแนนได้ทันที" />
+  <title>COINNEXT - Marketplace หาคนทำงานใกล้บ้าน</title>
+  <meta name="description" content="COINNEXT marketplace สำหรับค้นหาคนรับงานใกล้บ้าน พิมพ์งานที่ต้องการ เช่น ตัดหญ้า แล้วเจอคนใกล้ ๆ พร้อมราคา รีวิว คะแนน และระยะทาง" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,16 +12,16 @@
   <script src="https://unpkg.com/lucide@latest" defer></script>
   <style>
     :root {
-      --bg: #f7f7f4;
+      --bg: #f8f8f5;
       --surface: #ffffff;
       --surface-soft: #f1f3ef;
-      --text: #161616;
-      --muted: #666b73;
-      --line: #e4e4df;
+      --text: #151719;
+      --muted: #667085;
+      --line: #e5e7df;
       --primary: #111827;
       --accent: #0f766e;
-      --accent-soft: #dff7f2;
-      --star: #b45309;
+      --accent-soft: #e3f7f2;
+      --warm: #f8f0df;
     }
 
     * { box-sizing: border-box; }
@@ -34,13 +34,14 @@
       overflow-x: hidden;
     }
     button, input, select { font: inherit; }
+    button { cursor: pointer; }
     a { color: inherit; text-decoration: none; }
-    .page { max-width: 1160px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+    .page { max-width: 1180px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
     .card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 22px;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+      border-radius: 20px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.035);
     }
     .btn-primary, .btn-soft, .chip, .input-box, .select-box {
       min-height: 48px;
@@ -57,6 +58,7 @@
       font-weight: 800;
       padding: 0 18px;
     }
+    .btn-primary:hover { background: #020617; }
     .btn-soft {
       background: #fff;
       color: var(--text);
@@ -68,8 +70,7 @@
       font-weight: 800;
       padding: 0 18px;
     }
-    .btn-primary:hover { background: #020617; }
-    .btn-soft:hover { border-color: #c7c7be; background: #fafafa; }
+    .btn-soft:hover { border-color: #c9cfc5; background: #fbfbfa; }
     .chip {
       background: #fff;
       color: #2f343a;
@@ -84,7 +85,7 @@
     .chip:hover, .chip.active {
       background: var(--accent-soft);
       color: #115e59;
-      border-color: #99e6d9;
+      border-color: #a2e6d9;
     }
     .input-box, .select-box {
       width: 100%;
@@ -116,6 +117,7 @@
     .badge-accent { background: var(--accent-soft); color: #115e59; }
     .badge-neutral { background: #f1f3ef; color: #3f4650; }
     .badge-score { background: #111827; color: #fff; }
+    .badge-near { background: #fff7ed; color: #9a3412; }
     .swipe-row {
       display: flex;
       gap: 16px;
@@ -130,8 +132,8 @@
     .swipe-row::-webkit-scrollbar-thumb { background: #d6d6cf; border-radius: 999px; }
     .provider-card {
       scroll-snap-align: start;
-      flex: 0 0 min(84vw, 350px);
-      min-height: 420px;
+      flex: 0 0 min(86vw, 360px);
+      min-height: 440px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -143,8 +145,8 @@
       box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
     }
     .avatar {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: 18px;
       background: var(--surface-soft);
       display: grid;
@@ -167,11 +169,16 @@
     }
     .meta-box span { display: block; font-size: 12px; color: var(--muted); font-weight: 700; }
     .meta-box strong { display: block; margin-top: 2px; font-size: 15px; }
+    .near-strip {
+      background: linear-gradient(90deg, #e3f7f2, #fff7ed);
+      border: 1px solid #dcefe9;
+      border-radius: 16px;
+    }
     .hide { display: none !important; }
     @media (max-width: 640px) {
       .page { padding-left: 16px; padding-right: 16px; }
       .card { border-radius: 18px; }
-      .provider-card { flex-basis: 86vw; }
+      .provider-card { flex-basis: 88vw; }
     }
   </style>
 </head>
@@ -182,13 +189,13 @@
         <span class="w-10 h-10 rounded-2xl bg-slate-950 text-white grid place-items-center font-black">CN</span>
         <span>
           <span class="block text-xl font-black tracking-tight">COINNEXT</span>
-          <span class="hidden sm:block text-xs font-bold text-slate-500 -mt-1">หาคนทำงานใกล้บ้าน</span>
+          <span class="hidden sm:block text-xs font-bold text-slate-500 -mt-1">Marketplace ใกล้บ้าน</span>
         </span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm font-extrabold text-slate-600" aria-label="เมนูหลัก">
         <a href="#results" class="hover:text-slate-950">ค้นหา</a>
-        <a href="#other-pages" class="hover:text-slate-950">ข้อมูลเพิ่มเติม</a>
         <a href="#post" class="hover:text-slate-950">ลงประกาศ</a>
+        <a href="#info" class="hover:text-slate-950">ข้อมูลอื่น</a>
       </nav>
       <a href="#post" class="btn-soft hidden sm:inline-flex">ลงรับงาน</a>
     </div>
@@ -198,22 +205,37 @@
     <section class="py-7 md:py-10">
       <div class="page">
         <div class="card p-5 md:p-7">
-          <div class="max-w-3xl">
-            <p class="small-label mb-2">เริ่มจากการค้นหาอย่างเดียว</p>
-            <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight text-slate-950">
-              ต้องการหาคนทำงานอะไรใกล้บ้าน?
-            </h1>
-            <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
-              พิมพ์งานที่ต้องการ เช่น ตัดหญ้า ช่างไฟ แม่บ้าน หรืองานรายวัน แล้วดูการ์ดคนรับงานที่คะแนนสูงขึ้นก่อน
-            </p>
+          <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-6 lg:items-end">
+            <div>
+              <p class="small-label mb-2">ค้นหาแบบ marketplace</p>
+              <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight text-slate-950">
+                พิมพ์งานที่ต้องการ แล้วเจอคนใกล้ ๆ ก่อน
+              </h1>
+              <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
+                เช่น พิมพ์ “ตัดหญ้า” ระบบจะแสดงคนรับตัดหญ้าใกล้บ้านเป็นการ์ด ปัดซ้ายดูคนอื่นได้ และเรียงคนใกล้คุณก่อน ตามด้วยคะแนนและรีวิว
+              </p>
+            </div>
+            <div class="near-strip p-4">
+              <p class="font-black text-slate-950 flex items-center gap-2"><i data-lucide="map-pin" class="w-5 h-5 text-teal-700"></i> ตำแหน่งค้นหาตัวอย่าง</p>
+              <p class="text-slate-600 text-sm mt-1">ตั้งค่าเริ่มต้น: นครราชสีมา • เรียงใกล้คุณก่อน</p>
+              <div class="mt-3 grid sm:grid-cols-[1fr_auto] gap-2">
+                <select id="homeProvince" class="select-box" aria-label="เลือกพื้นที่ของฉัน">
+                  <option value="นครราชสีมา">นครราชสีมา</option>
+                  <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                  <option value="ขอนแก่น">ขอนแก่น</option>
+                  <option value="เชียงใหม่">เชียงใหม่</option>
+                </select>
+                <button id="useNearBtn" class="btn-primary" type="button">ใช้พื้นที่นี้</button>
+              </div>
+            </div>
           </div>
 
-          <div class="mt-5 grid lg:grid-cols-[1fr_auto] gap-3">
-            <label class="flex items-center gap-3 bg-white border border-[var(--line)] rounded-2xl px-4 min-h-[64px]" for="searchInput">
+          <div class="mt-6 grid lg:grid-cols-[1fr_auto] gap-3">
+            <label class="flex items-center gap-3 bg-white border border-[var(--line)] rounded-2xl px-4 min-h-[66px]" for="searchInput">
               <i data-lucide="search" class="w-7 h-7 text-slate-500 flex-shrink-0"></i>
               <input id="searchInput" type="search" class="w-full bg-transparent outline-none text-lg font-bold placeholder:text-slate-400" placeholder="เช่น ตัดหญ้า" autocomplete="off" />
             </label>
-            <button id="searchBtn" class="btn-primary text-lg min-h-[64px] px-8">
+            <button id="searchBtn" class="btn-primary text-lg min-h-[66px] px-8">
               ค้นหา
               <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
@@ -235,11 +257,11 @@
       <div class="page">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
           <div>
-            <p class="small-label">ผลลัพธ์แนะนำ</p>
+            <p class="small-label">ผลลัพธ์ใกล้คุณ</p>
             <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-950">
-              <span id="resultTitle">คนรับตัดหญ้าที่คะแนนสูง</span>
+              <span id="resultTitle">คนรับตัดหญ้าใกล้คุณ</span>
             </h2>
-            <p class="mt-2 text-slate-600">ปัดซ้ายเพื่อดูคนอื่น ๆ ระบบเรียงจากคะแนนรวมสูงก่อน</p>
+            <p id="sortHint" class="mt-2 text-slate-600">ปัดซ้ายเพื่อดูคนอื่น ๆ ระบบเรียงจากระยะทางใกล้สุดก่อน แล้วค่อยดูคะแนนและรีวิว</p>
           </div>
           <div class="flex items-center gap-2">
             <button id="prevBtn" class="btn-soft px-4" aria-label="เลื่อนซ้าย"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
@@ -248,13 +270,13 @@
         </div>
 
         <div class="card p-4 md:p-5">
-          <div class="grid md:grid-cols-4 gap-3 mb-4">
+          <div class="grid md:grid-cols-5 gap-3 mb-4">
             <select id="provinceFilter" class="select-box">
-              <option value="">ทุกจังหวัด</option>
               <option value="นครราชสีมา">นครราชสีมา</option>
               <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
               <option value="ขอนแก่น">ขอนแก่น</option>
               <option value="เชียงใหม่">เชียงใหม่</option>
+              <option value="">ทุกจังหวัด</option>
             </select>
             <select id="typeFilter" class="select-box">
               <option value="">ทุกประเภท</option>
@@ -270,32 +292,37 @@
               <option value="พรุ่งนี้">พรุ่งนี้</option>
               <option value="สัปดาห์นี้">สัปดาห์นี้</option>
             </select>
+            <select id="sortFilter" class="select-box">
+              <option value="near">ใกล้ที่สุดก่อน</option>
+              <option value="score">คะแนนสูงก่อน</option>
+              <option value="review">รีวิวเยอะก่อน</option>
+            </select>
             <button id="resetBtn" class="btn-soft">ล้างตัวกรอง</button>
           </div>
 
-          <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
             <p class="text-sm sm:text-base font-black text-slate-800">พบ <span id="resultCount" class="text-teal-700">0</span> รายการ</p>
-            <p class="text-sm font-bold text-slate-500 hidden sm:block">คะแนนรวม = รีวิว + ความพร้อม + ระยะทาง + ความน่าเชื่อถือ</p>
+            <p class="text-sm font-bold text-slate-500">Marketplace mode: แสดงคนใกล้ก่อน • การ์ดปัดซ้ายขวา</p>
           </div>
 
           <div id="resultRow" class="swipe-row" aria-label="ผลลัพธ์แบบปัดซ้ายขวา"></div>
           <div id="emptyState" class="hide text-center py-12">
             <div class="w-16 h-16 rounded-full bg-slate-100 mx-auto grid place-items-center mb-4"><i data-lucide="search-x" class="w-8 h-8 text-slate-500"></i></div>
-            <h3 class="text-2xl font-black">ยังไม่พบงานนี้</h3>
-            <p class="text-slate-600 mt-2">ลองค้นคำกว้างขึ้น เช่น ช่าง, งานบ้าน, ฟรีแลนซ์ หรือเลือกทุกจังหวัด</p>
+            <h3 class="text-2xl font-black">ยังไม่พบงานนี้ในพื้นที่ที่เลือก</h3>
+            <p class="text-slate-600 mt-2">ลองเลือก “ทุกจังหวัด” หรือค้นคำกว้างขึ้น เช่น ช่าง, งานบ้าน, ฟรีแลนซ์</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="other-pages" class="py-8 md:py-12 bg-white border-y border-[var(--line)]">
+    <section id="info" class="py-8 md:py-12 bg-white border-y border-[var(--line)]">
       <div class="page">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
           <div>
-            <p class="small-label">ข้อมูลอื่นไม่ต้องอยู่หน้าแรกเยอะ</p>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">อยากดูเพิ่มค่อยกดเข้าไป</h2>
+            <p class="small-label">ข้อมูลอื่นให้ไปอยู่ส่วนรอง</p>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">หน้าแรกไม่ต้องเยอะ แค่ค้นหาให้เจอก่อน</h2>
           </div>
-          <p class="text-slate-600 max-w-xl">หน้าแรกเน้นค้นหาและดูการ์ด ส่วนรายละเอียดอื่นทำเป็นหน้ารอง/กล่องข้อมูล เพื่อไม่ให้ผู้ใช้ใหม่สับสน</p>
+          <p class="text-slate-600 max-w-xl">รายละเอียดผู้รับงาน เงื่อนไข รีวิว รูปผลงาน และประวัติ ควรอยู่ในหน้าโปรไฟล์/หน้ารายละเอียด เพื่อไม่ให้หน้าแรกหนักเกินไป</p>
         </div>
         <div class="grid md:grid-cols-4 gap-3">
           <a class="card p-5 hover:border-slate-300" href="#post">
@@ -313,10 +340,10 @@
             <h3 class="font-black text-lg">ความปลอดภัย</h3>
             <p class="text-slate-600 mt-2 text-sm">รีวิว ยืนยันตัวตน และรายงานปัญหา</p>
           </a>
-          <a class="card p-5 hover:border-slate-300" href="#">
-            <i data-lucide="help-circle" class="w-7 h-7 text-slate-700 mb-4"></i>
-            <h3 class="font-black text-lg">วิธีใช้งาน</h3>
-            <p class="text-slate-600 mt-2 text-sm">อธิบายสำหรับผู้จ้างและคนรับงาน</p>
+          <a class="card p-5 hover:border-slate-300" href="#safe">
+            <i data-lucide="star" class="w-7 h-7 text-slate-700 mb-4"></i>
+            <h3 class="font-black text-lg">รีวิวและคะแนน</h3>
+            <p class="text-slate-600 mt-2 text-sm">ช่วยให้คนดี ๆ ขึ้นมาก่อน</p>
           </a>
         </div>
       </div>
@@ -325,9 +352,9 @@
     <section id="post" class="py-8 md:py-12">
       <div class="page grid lg:grid-cols-2 gap-4">
         <div class="card p-6 md:p-7 bg-slate-950 text-white border-slate-950">
-          <p class="text-teal-300 text-sm font-black">สำหรับ demo</p>
-          <h2 class="text-3xl font-black mt-2">ลงงานให้ง่ายที่สุด</h2>
-          <p class="text-slate-300 mt-3 leading-relaxed">ฟอร์มจริงควรมีแค่ 4 อย่างก่อน: งานอะไร, พื้นที่, งบประมาณ, ต้องการเมื่อไหร่ รายละเอียดอื่นค่อยเติมทีหลัง</p>
+          <p class="text-teal-300 text-sm font-black">Marketplace flow</p>
+          <h2 class="text-3xl font-black mt-2">ลงงานให้สั้นที่สุด</h2>
+          <p class="text-slate-300 mt-3 leading-relaxed">ฟอร์มจริงควรมีแค่ 4 อย่างก่อน: งานอะไร, พื้นที่, งบประมาณ, ต้องการเมื่อไหร่ รายละเอียดอื่นค่อยเติมในหน้ารายละเอียด</p>
           <div class="mt-5 grid sm:grid-cols-2 gap-3 text-sm font-bold">
             <div class="bg-white/10 rounded-2xl p-4">งานอะไร</div>
             <div class="bg-white/10 rounded-2xl p-4">พื้นที่ไหน</div>
@@ -364,9 +391,9 @@
 
     <section id="safe" class="py-8 md:py-12 bg-white border-y border-[var(--line)]">
       <div class="page grid md:grid-cols-3 gap-4">
-        <div class="card p-5"><h3 class="font-black text-xl">รีวิวหลังจบงาน</h3><p class="text-slate-600 mt-2">ช่วยให้คนคะแนนดีขึ้นมาก่อน และลดความเสี่ยงในการจ้าง</p></div>
-        <div class="card p-5"><h3 class="font-black text-xl">ข้อมูลสำคัญบนการ์ด</h3><p class="text-slate-600 mt-2">ราคา ระยะทาง ความพร้อม คะแนน และประเภทผู้รับงานอยู่ในหน้าเดียว</p></div>
-        <div class="card p-5"><h3 class="font-black text-xl">Verified เป็นตัวเสริม</h3><p class="text-slate-600 mt-2">ไม่บังคับใช้ แต่ช่วยเพิ่มความมั่นใจสำหรับงานเข้าบ้านหรือบริษัท</p></div>
+        <div class="card p-5"><h3 class="font-black text-xl">ใกล้ก่อน แต่ยังดูคุณภาพ</h3><p class="text-slate-600 mt-2">ค่าเริ่มต้นเรียงจากระยะทางใกล้สุด แล้วตามด้วยคะแนน รีวิว และสถานะยืนยัน</p></div>
+        <div class="card p-5"><h3 class="font-black text-xl">การ์ดเดียวตัดสินใจได้</h3><p class="text-slate-600 mt-2">ราคา ระยะทาง ความพร้อม คะแนน รีวิว และประเภทผู้รับงานอยู่ในการ์ดเดียว</p></div>
+        <div class="card p-5"><h3 class="font-black text-xl">หน้าอื่นค่อยดูละเอียด</h3><p class="text-slate-600 mt-2">รูปผลงาน เงื่อนไข ประวัติ และรีวิวเต็มควรอยู่ในหน้าโปรไฟล์</p></div>
       </div>
     </section>
   </main>
@@ -375,7 +402,7 @@
     <div class="page flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
         <h3 class="text-2xl font-black">COINNEXT</h3>
-        <p class="text-slate-300 mt-1">เว็บหาคนทำงานและงานใกล้บ้าน ใช้งานง่ายเป็นหลัก</p>
+        <p class="text-slate-300 mt-1">Marketplace หาคนทำงานและงานใกล้บ้าน ใช้งานง่ายเป็นหลัก</p>
       </div>
       <p class="text-sm text-slate-400">Demo UI • 2026</p>
     </div>
@@ -386,15 +413,16 @@
       { id: 1, title: 'รับตัดหญ้าหน้าบ้าน / สวน / ที่ดิน', name: 'ช่างเอก ทีมสวนโคราช', type: 'ทีมช่าง', category: 'ตัดหญ้า', province: 'นครราชสีมา', area: 'ตัวเมืองโคราช', price: 'เริ่ม 350 บาท', rating: 4.9, reviews: 86, distance: 2.1, available: 'วันนี้', score: 98, verified: true, desc: 'ตัดหญ้า เก็บเศษหญ้า แต่งขอบทางเดิน รับงานบ้านและที่ดินขนาดเล็ก' },
       { id: 2, title: 'ตัดหญ้า ดูแลสวน รายครั้ง', name: 'สวนดี บริการดูแลบ้าน', type: 'บริษัท', category: 'ตัดหญ้า', province: 'นครราชสีมา', area: 'จอหอ / บ้านเกาะ', price: 'เริ่ม 500 บาท', rating: 4.8, reviews: 64, distance: 4.6, available: 'พรุ่งนี้', score: 94, verified: true, desc: 'มีอุปกรณ์ครบ ทีมงาน 2-3 คน เหมาะกับบ้านจัดสรรและออฟฟิศ' },
       { id: 3, title: 'รับตัดหญ้า เสาร์-อาทิตย์', name: 'ลุงชัย รับงานสวน', type: 'บุคคลทั่วไป', category: 'ตัดหญ้า', province: 'นครราชสีมา', area: 'หัวทะเล', price: 'เริ่ม 300 บาท', rating: 4.7, reviews: 31, distance: 5.2, available: 'สัปดาห์นี้', score: 89, verified: false, desc: 'รับงานสวนเล็ก ๆ หน้าบ้าน ตกลงราคาตามพื้นที่จริง' },
-      { id: 4, title: 'แม่บ้านรายวัน ทำความสะอาดบ้าน', name: 'คุณนก แม่บ้านโคราช', type: 'บุคคลทั่วไป', category: 'ทำความสะอาด', province: 'นครราชสีมา', area: 'ในเมือง', price: 'เริ่ม 450 บาท', rating: 4.9, reviews: 73, distance: 1.8, available: 'วันนี้', score: 97, verified: true, desc: 'ทำความสะอาดบ้าน คอนโด ห้องเช่า ก่อนเข้าอยู่และหลังย้ายออก' },
-      { id: 5, title: 'ทีมแม่บ้านเข้าบ้าน / ออฟฟิศ', name: 'CleanCare Korat', type: 'บริษัท', category: 'ทำความสะอาด', province: 'นครราชสีมา', area: 'ทั้งจังหวัด', price: 'เริ่ม 800 บาท', rating: 4.8, reviews: 52, distance: 7.4, available: 'พรุ่งนี้', score: 91, verified: true, desc: 'เหมาะกับบ้านใหญ่ ออฟฟิศ และทำความสะอาดหลังรีโนเวต' },
-      { id: 6, title: 'ช่างไฟ ซ่อมไฟ เดินสาย เพิ่มปลั๊ก', name: 'ช่างบอล ไฟฟ้า', type: 'ทีมช่าง', category: 'ช่างไฟ', province: 'นครราชสีมา', area: 'สุรนารี', price: 'เริ่ม 400 บาท', rating: 4.9, reviews: 101, distance: 3.3, available: 'วันนี้', score: 96, verified: true, desc: 'ซ่อมไฟบ้าน เพิ่มปลั๊ก เปลี่ยนเบรกเกอร์ ตรวจระบบไฟเบื้องต้น' },
-      { id: 7, title: 'ล้างแอร์ ซ่อมแอร์ เติมน้ำยา', name: 'ช่างต้อม แอร์บ้าน', type: 'ทีมช่าง', category: 'ช่างแอร์', province: 'นครราชสีมา', area: 'เซฟวัน / บ้านใหม่', price: 'เริ่ม 500 บาท', rating: 4.8, reviews: 76, distance: 3.9, available: 'วันนี้', score: 95, verified: true, desc: 'ล้างแอร์บ้าน คอนโด ร้านค้า พร้อมออกใบงาน' },
-      { id: 8, title: 'ตัดต่อวิดีโอ TikTok / Reels', name: 'Frank Creative', type: 'ฟรีแลนซ์', category: 'ตัดต่อวิดีโอ', province: 'นครราชสีมา', area: 'ออนไลน์', price: 'เริ่ม 800 บาท', rating: 4.9, reviews: 42, distance: 0, available: 'สัปดาห์นี้', score: 93, verified: true, desc: 'ตัดต่อคลิปสั้น คอนเทนต์ร้านค้า วิดีโอโปรโมชัน ส่งงานออนไลน์' },
-      { id: 9, title: 'ออกแบบโลโก้ / Artwork ร้านค้า', name: 'Pixel Local Design', type: 'ฟรีแลนซ์', category: 'ออกแบบ', province: 'ขอนแก่น', area: 'ออนไลน์', price: 'เริ่ม 1,500 บาท', rating: 4.7, reviews: 28, distance: 0, available: 'พรุ่งนี้', score: 85, verified: false, desc: 'ออกแบบโลโก้ โปสเตอร์ เมนูร้านค้า และ artwork สำหรับเพจ' },
-      { id: 10, title: 'รับสมัครแพ็กของรายวัน', name: 'คลังสินค้า ABC', type: 'บริษัท', category: 'งานรายวัน', province: 'กรุงเทพมหานคร', area: 'ลาดกระบัง', price: '450 บาท/วัน', rating: 4.6, reviews: 19, distance: 8.6, available: 'พรุ่งนี้', score: 82, verified: true, desc: 'งานรายวัน แพ็กสินค้า ไม่จำกัดวุฒิ จ่ายตามรอบบริษัท' },
-      { id: 11, title: 'งานดูแลพื้นที่สาธารณะ', name: 'เทศบาลเมืองตัวอย่าง', type: 'หน่วยงานรัฐ/ชุมชน', category: 'งานชุมชน', province: 'นครราชสีมา', area: 'ในเมือง', price: 'ตามประกาศโครงการ', rating: 4.5, reviews: 14, distance: 2.8, available: 'สัปดาห์นี้', score: 80, verified: true, desc: 'ตัวอย่างงานชุมชน/รัฐ สำหรับเปิดรับคนในพื้นที่' },
-      { id: 12, title: 'รับขนของ ย้ายหอ ย้ายบ้าน', name: 'ทีมขนของใกล้บ้าน', type: 'ทีมช่าง', category: 'ขนของ', province: 'เชียงใหม่', area: 'ในเมือง', price: 'เริ่ม 600 บาท', rating: 4.7, reviews: 33, distance: 6.1, available: 'วันนี้', score: 84, verified: false, desc: 'ย้ายหอ ย้ายบ้าน ขนของชิ้นใหญ่ มีรถกระบะ' }
+      { id: 4, title: 'รับตัดหญ้า ใกล้บ้านใหม่ / เซฟวัน', name: 'คุณหนึ่ง งานสวนหลังเลิกงาน', type: 'บุคคลทั่วไป', category: 'ตัดหญ้า', province: 'นครราชสีมา', area: 'บ้านใหม่ / เซฟวัน', price: 'เริ่ม 280 บาท', rating: 4.6, reviews: 18, distance: 1.2, available: 'วันนี้', score: 87, verified: false, desc: 'รับงานสวนขนาดเล็กช่วงเย็นและวันหยุด เหมาะกับบ้านพักอาศัย' },
+      { id: 5, title: 'แม่บ้านรายวัน ทำความสะอาดบ้าน', name: 'คุณนก แม่บ้านโคราช', type: 'บุคคลทั่วไป', category: 'ทำความสะอาด', province: 'นครราชสีมา', area: 'ในเมือง', price: 'เริ่ม 450 บาท', rating: 4.9, reviews: 73, distance: 1.8, available: 'วันนี้', score: 97, verified: true, desc: 'ทำความสะอาดบ้าน คอนโด ห้องเช่า ก่อนเข้าอยู่และหลังย้ายออก' },
+      { id: 6, title: 'ทีมแม่บ้านเข้าบ้าน / ออฟฟิศ', name: 'CleanCare Korat', type: 'บริษัท', category: 'ทำความสะอาด', province: 'นครราชสีมา', area: 'ทั้งจังหวัด', price: 'เริ่ม 800 บาท', rating: 4.8, reviews: 52, distance: 7.4, available: 'พรุ่งนี้', score: 91, verified: true, desc: 'เหมาะกับบ้านใหญ่ ออฟฟิศ และทำความสะอาดหลังรีโนเวต' },
+      { id: 7, title: 'ช่างไฟ ซ่อมไฟ เดินสาย เพิ่มปลั๊ก', name: 'ช่างบอล ไฟฟ้า', type: 'ทีมช่าง', category: 'ช่างไฟ', province: 'นครราชสีมา', area: 'สุรนารี', price: 'เริ่ม 400 บาท', rating: 4.9, reviews: 101, distance: 3.3, available: 'วันนี้', score: 96, verified: true, desc: 'ซ่อมไฟบ้าน เพิ่มปลั๊ก เปลี่ยนเบรกเกอร์ ตรวจระบบไฟเบื้องต้น' },
+      { id: 8, title: 'ล้างแอร์ ซ่อมแอร์ เติมน้ำยา', name: 'ช่างต้อม แอร์บ้าน', type: 'ทีมช่าง', category: 'ช่างแอร์', province: 'นครราชสีมา', area: 'เซฟวัน / บ้านใหม่', price: 'เริ่ม 500 บาท', rating: 4.8, reviews: 76, distance: 3.9, available: 'วันนี้', score: 95, verified: true, desc: 'ล้างแอร์บ้าน คอนโด ร้านค้า พร้อมออกใบงาน' },
+      { id: 9, title: 'ตัดต่อวิดีโอ TikTok / Reels', name: 'Frank Creative', type: 'ฟรีแลนซ์', category: 'ตัดต่อวิดีโอ', province: 'นครราชสีมา', area: 'ออนไลน์', price: 'เริ่ม 800 บาท', rating: 4.9, reviews: 42, distance: 0, available: 'สัปดาห์นี้', score: 93, verified: true, desc: 'ตัดต่อคลิปสั้น คอนเทนต์ร้านค้า วิดีโอโปรโมชัน ส่งงานออนไลน์' },
+      { id: 10, title: 'ออกแบบโลโก้ / Artwork ร้านค้า', name: 'Pixel Local Design', type: 'ฟรีแลนซ์', category: 'ออกแบบ', province: 'ขอนแก่น', area: 'ออนไลน์', price: 'เริ่ม 1,500 บาท', rating: 4.7, reviews: 28, distance: 0, available: 'พรุ่งนี้', score: 85, verified: false, desc: 'ออกแบบโลโก้ โปสเตอร์ เมนูร้านค้า และ artwork สำหรับเพจ' },
+      { id: 11, title: 'รับสมัครแพ็กของรายวัน', name: 'คลังสินค้า ABC', type: 'บริษัท', category: 'งานรายวัน', province: 'กรุงเทพมหานคร', area: 'ลาดกระบัง', price: '450 บาท/วัน', rating: 4.6, reviews: 19, distance: 8.6, available: 'พรุ่งนี้', score: 82, verified: true, desc: 'งานรายวัน แพ็กสินค้า ไม่จำกัดวุฒิ จ่ายตามรอบบริษัท' },
+      { id: 12, title: 'งานดูแลพื้นที่สาธารณะ', name: 'เทศบาลเมืองตัวอย่าง', type: 'หน่วยงานรัฐ/ชุมชน', category: 'งานชุมชน', province: 'นครราชสีมา', area: 'ในเมือง', price: 'ตามประกาศโครงการ', rating: 4.5, reviews: 14, distance: 2.8, available: 'สัปดาห์นี้', score: 80, verified: true, desc: 'ตัวอย่างงานชุมชน/รัฐ สำหรับเปิดรับคนในพื้นที่' },
+      { id: 13, title: 'รับขนของ ย้ายหอ ย้ายบ้าน', name: 'ทีมขนของใกล้บ้าน', type: 'ทีมช่าง', category: 'ขนของ', province: 'เชียงใหม่', area: 'ในเมือง', price: 'เริ่ม 600 บาท', rating: 4.7, reviews: 33, distance: 6.1, available: 'วันนี้', score: 84, verified: false, desc: 'ย้ายหอ ย้ายบ้าน ขนของชิ้นใหญ่ มีรถกระบะ' }
     ];
 
     const searchInput = document.getElementById('searchInput');
@@ -402,13 +430,17 @@
     const resultRow = document.getElementById('resultRow');
     const resultCount = document.getElementById('resultCount');
     const resultTitle = document.getElementById('resultTitle');
+    const sortHint = document.getElementById('sortHint');
     const emptyState = document.getElementById('emptyState');
     const provinceFilter = document.getElementById('provinceFilter');
     const typeFilter = document.getElementById('typeFilter');
     const availabilityFilter = document.getElementById('availabilityFilter');
+    const sortFilter = document.getElementById('sortFilter');
     const resetBtn = document.getElementById('resetBtn');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const homeProvince = document.getElementById('homeProvince');
+    const useNearBtn = document.getElementById('useNearBtn');
 
     function normalize(text) { return String(text || '').toLowerCase().trim(); }
 
@@ -421,17 +453,29 @@
         'แม่บ้าน': ['ทำความสะอาด', 'แม่บ้าน'],
         'ทำความสะอาด': ['ทำความสะอาด', 'แม่บ้าน'],
         'ไฟ': ['ช่างไฟ', 'ไฟฟ้า'],
+        'ช่างไฟ': ['ช่างไฟ', 'ไฟฟ้า'],
         'แอร์': ['ช่างแอร์', 'ล้างแอร์'],
+        'ช่างแอร์': ['ช่างแอร์', 'ล้างแอร์'],
         'ตัดต่อ': ['ตัดต่อวิดีโอ', 'วิดีโอ'],
-        'รายวัน': ['งานรายวัน', 'แพ็กของ']
+        'ตัดต่อวิดีโอ': ['ตัดต่อวิดีโอ', 'วิดีโอ'],
+        'รายวัน': ['งานรายวัน', 'แพ็กของ'],
+        'งานรายวัน': ['งานรายวัน', 'แพ็กของ']
       };
       const terms = aliases[keyword] || [keyword];
       return terms.some(term => haystack.includes(term));
     }
 
+    function compareResults(a, b) {
+      const mode = sortFilter.value;
+      if (mode === 'score') return b.score - a.score || b.rating - a.rating || a.distance - b.distance;
+      if (mode === 'review') return b.reviews - a.reviews || b.rating - a.rating || a.distance - b.distance;
+      return a.distance - b.distance || b.score - a.score || b.rating - a.rating || b.reviews - a.reviews;
+    }
+
     function createCard(item, index) {
       const initial = item.name.replace(/^(คุณ|ช่าง|ทีม|บริษัท)/, '').trim().charAt(0) || 'C';
       const distanceText = item.distance === 0 ? 'ออนไลน์' : `${item.distance} กม.`;
+      const nearBadge = item.distance > 0 && item.distance <= 3 ? '<span class="badge badge-near">ใกล้มาก</span>' : '';
       return `
         <article class="provider-card card p-5" aria-label="${item.title}">
           <div>
@@ -441,6 +485,7 @@
                 <div class="min-w-0">
                   <div class="flex items-center gap-2 mb-1 flex-wrap">
                     <span class="badge badge-score">คะแนน ${item.score}</span>
+                    ${nearBadge}
                     ${item.verified ? '<span class="badge badge-accent">ยืนยันแล้ว</span>' : '<span class="badge badge-neutral">โปรไฟล์ทั่วไป</span>'}
                   </div>
                   <p class="font-black text-lg leading-tight truncate">${item.name}</p>
@@ -454,15 +499,15 @@
             <p class="mt-2 text-slate-600 leading-relaxed text-sm">${item.desc}</p>
 
             <div class="mt-4 meta-grid">
-              <div class="meta-box"><span>ราคา</span><strong>${item.price}</strong></div>
+              <div class="meta-box"><span>ระยะทาง</span><strong>${distanceText}</strong></div>
               <div class="meta-box"><span>รีวิว</span><strong>★ ${item.rating} (${item.reviews})</strong></div>
-              <div class="meta-box"><span>ระยะ</span><strong>${distanceText}</strong></div>
+              <div class="meta-box"><span>ราคา</span><strong>${item.price}</strong></div>
               <div class="meta-box"><span>พร้อม</span><strong>${item.available}</strong></div>
             </div>
           </div>
 
           <div class="mt-5 grid grid-cols-2 gap-2">
-            <button class="btn-soft" type="button" onclick="showDetail(${item.id})">รายละเอียด</button>
+            <button class="btn-soft" type="button" onclick="showDetail(${item.id})">ดูโปรไฟล์</button>
             <button class="btn-primary" type="button" onclick="alert('Demo: เปิดแชท/ขอราคา ${item.name}')">ทัก/ขอราคา</button>
           </div>
         </article>
@@ -477,15 +522,17 @@
 
       let results = PROVIDERS.filter(item => {
         const keywordOk = matchProvider(item, keyword);
-        const provinceOk = !province || item.province === province;
+        const provinceOk = !province || item.province === province || item.area === 'ออนไลน์';
         const typeOk = !type || item.type === type;
         const availabilityOk = !availability || item.available === availability;
         return keywordOk && provinceOk && typeOk && availabilityOk;
-      }).sort((a, b) => b.score - a.score || b.rating - a.rating || a.distance - b.distance);
+      }).sort(compareResults);
 
       resultCount.textContent = results.length;
-      const label = keyword ? `ผลลัพธ์ “${searchInput.value.trim()}” ที่คะแนนสูง` : 'คนรับงานที่คะแนนสูง';
-      resultTitle.textContent = label;
+      const baseLabel = keyword ? `ผลลัพธ์ “${searchInput.value.trim()}”` : 'คนรับงาน';
+      resultTitle.textContent = `${baseLabel} ใกล้คุณ`;
+      const sortText = sortFilter.value === 'near' ? 'เรียงจากระยะทางใกล้สุดก่อน แล้วตามด้วยคะแนนและรีวิว' : sortFilter.value === 'score' ? 'เรียงจากคะแนนสูงก่อน แล้วตามด้วยรีวิวและระยะทาง' : 'เรียงจากจำนวนรีวิวก่อน แล้วตามด้วยคะแนนและระยะทาง';
+      sortHint.textContent = `ปัดซ้ายเพื่อดูคนอื่น ๆ ระบบ${sortText}`;
 
       if (results.length === 0) {
         resultRow.innerHTML = '';
@@ -493,6 +540,7 @@
       } else {
         emptyState.classList.add('hide');
         resultRow.innerHTML = results.map(createCard).join('');
+        resultRow.scrollTo({ left: 0, behavior: 'smooth' });
       }
 
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -502,7 +550,7 @@
     function showDetail(id) {
       const item = PROVIDERS.find(provider => provider.id === id);
       if (!item) return;
-      alert(`${item.title}\n\nโดย: ${item.name}\nราคา: ${item.price}\nคะแนน: ${item.score}\nรีวิว: ${item.rating} จาก ${item.reviews} รีวิว\nพื้นที่: ${item.area}, ${item.province}\nพร้อม: ${item.available}\n\n${item.desc}`);
+      alert(`${item.title}\n\nโดย: ${item.name}\nราคา: ${item.price}\nคะแนน: ${item.score}\nรีวิว: ${item.rating} จาก ${item.reviews} รีวิว\nระยะทาง: ${item.distance === 0 ? 'ออนไลน์' : item.distance + ' กม.'}\nพื้นที่: ${item.area}, ${item.province}\nพร้อม: ${item.available}\n\n${item.desc}`);
     }
 
     document.querySelectorAll('.quick-chip').forEach(btn => {
@@ -510,6 +558,7 @@
         document.querySelectorAll('.quick-chip').forEach(chip => chip.classList.remove('active'));
         btn.classList.add('active');
         searchInput.value = btn.dataset.query;
+        sortFilter.value = 'near';
         applySearch(true);
       });
     });
@@ -519,20 +568,28 @@
       if (event.key === 'Enter') applySearch(true);
     });
     searchInput.addEventListener('input', () => applySearch(false));
-    [provinceFilter, typeFilter, availabilityFilter].forEach(filter => filter.addEventListener('change', () => applySearch(false)));
+    [provinceFilter, typeFilter, availabilityFilter, sortFilter].forEach(filter => filter.addEventListener('change', () => applySearch(false)));
+    useNearBtn.addEventListener('click', () => {
+      provinceFilter.value = homeProvince.value;
+      sortFilter.value = 'near';
+      applySearch(true);
+    });
     resetBtn.addEventListener('click', () => {
-      provinceFilter.value = '';
+      provinceFilter.value = homeProvince.value || 'นครราชสีมา';
       typeFilter.value = '';
       availabilityFilter.value = '';
+      sortFilter.value = 'near';
       searchInput.value = 'ตัดหญ้า';
       document.querySelectorAll('.quick-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.query === 'ตัดหญ้า'));
       applySearch(false);
     });
-    prevBtn.addEventListener('click', () => resultRow.scrollBy({ left: -360, behavior: 'smooth' }));
-    nextBtn.addEventListener('click', () => resultRow.scrollBy({ left: 360, behavior: 'smooth' }));
+    prevBtn.addEventListener('click', () => resultRow.scrollBy({ left: -380, behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => resultRow.scrollBy({ left: 380, behavior: 'smooth' }));
 
     window.addEventListener('DOMContentLoaded', () => {
       searchInput.value = 'ตัดหญ้า';
+      provinceFilter.value = 'นครราชสีมา';
+      sortFilter.value = 'near';
       applySearch(false);
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
